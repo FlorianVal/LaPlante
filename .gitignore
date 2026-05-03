@@ -1,4 +1,5 @@
 node_modules/
 dist/
+*.tsbuildinfo
 data/*.sqlite
 data/*.sqlite-*
