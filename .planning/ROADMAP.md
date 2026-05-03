@@ -106,7 +106,7 @@ Plans:
 **Plans:** 2 plans
 
 Plans:
-- [ ] 03-01-PLAN.md — Server multipart upload (@fastify/multipart), photo storage on disk, static serving (@fastify/static), Vite /photos proxy, multipart route tests.
+- [x] 03-01-PLAN.md — Server multipart upload (@fastify/multipart), photo storage on disk, static serving (@fastify/static), Vite /photos proxy, multipart route tests.
 - [ ] 03-02-PLAN.md — Client AddPlantModal, Toast, "+" FAB, clickable EmptyState, PlantRow photo rendering, API createPlant, immediate refresh.
 
 **Plan 02 depends on Plan 01 completion.**
