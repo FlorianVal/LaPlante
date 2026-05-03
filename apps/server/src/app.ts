@@ -1,3 +1,8 @@
+import { mkdirSync } from "node:fs";
+import path from "node:path";
+
+import multipart from "@fastify/multipart";
+import fastifyStatic from "@fastify/static";
 import Fastify, { type FastifyInstance } from "fastify";
 
 import { loadConfig } from "./config.js";
@@ -5,13 +10,18 @@ import { createDatabase, type AppDatabase } from "./db/client.js";
 import { registerHealthRoute } from "./routes/health.js";
 import { registerPlantRoutes } from "./routes/plants.js";
 
+const PHOTOS_DIR = path.resolve("data/photos");
+
 export type BuildAppOptions = {
   databasePath?: string;
   db?: AppDatabase;
   today?: string;
+  photosDir?: string;
 };
 
 export function buildApp(options: BuildAppOptions = {}): FastifyInstance {
+  mkdirSync(PHOTOS_DIR, { recursive: true });
+
   const app = Fastify({
     logger: true
   });
@@ -27,7 +37,26 @@ export function buildApp(options: BuildAppOptions = {}): FastifyInstance {
   }
 
   void app.register(registerHealthRoute);
-  void app.register(registerPlantRoutes, { db, today: options.today });
+
+  app.register(multipart, {
+    limits: {
+      fileSize: 5_000_000, // 5 MB
+      files: 1,
+      fields: 5
+    }
+  });
+
+  app.register(fastifyStatic, {
+    root: PHOTOS_DIR,
+    prefix: "/photos/",
+    serveDotFiles: false
+  });
+
+  void app.register(registerPlantRoutes, {
+    db,
+    today: options.today,
+    photosDir: options.photosDir ?? PHOTOS_DIR
+  });
 
   if (databaseHandle) {
     app.addHook("onClose", async () => {
