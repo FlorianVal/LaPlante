@@ -1,6 +1,7 @@
-import { mkdtempSync, rmSync } from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync } from "node:fs";
+import { randomBytes } from "node:crypto";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { dirname, join } from "node:path";
 
 import { describe, expect, it } from "vitest";
 
@@ -152,6 +153,114 @@ describe("plant routes", () => {
     await reopened.close();
     cleanup();
   });
+
+  describe("multipart photo upload", () => {
+    it("creates a plant with photo via multipart form data", async () => {
+      const { app, photosDir, cleanup } = createTestAppWithPhotos();
+
+      const { body, boundary } = buildMultipartBody(
+        { name: "Monstera", intervalDays: "7" },
+        { name: "monstera.jpg", content: Buffer.from("fake-jpeg-data"), contentType: "image/jpeg" }
+      );
+
+      const created = await app.inject({
+        method: "POST",
+        url: `/api/plants?${WINDOW}`,
+        payload: body,
+        headers: { "content-type": `multipart/form-data; boundary=${boundary}` }
+      });
+
+      expect(created.statusCode).toBe(201);
+      const json = created.json();
+      expect(json.photoPath).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-/);
+      expect(json.photoPath).toMatch(/\.jpg$/);
+      expect(json.name).toBe("Monstera");
+
+      // Verify file exists on disk
+      const savedPath = join(photosDir, json.photoPath);
+      expect(existsSync(savedPath)).toBe(true);
+      expect(readFileSync(savedPath)).toEqual(Buffer.from("fake-jpeg-data"));
+
+      await app.close();
+      cleanup();
+    });
+
+    it("creates a plant without photo via multipart form data", async () => {
+      const { app, cleanup } = createTestAppWithPhotos();
+
+      const { body, boundary } = buildMultipartBody(
+        { name: "Ficus", intervalDays: "5" }
+      );
+
+      const created = await app.inject({
+        method: "POST",
+        url: `/api/plants?${WINDOW}`,
+        payload: body,
+        headers: { "content-type": `multipart/form-data; boundary=${boundary}` }
+      });
+
+      expect(created.statusCode).toBe(201);
+      expect(created.json().photoPath).toBeNull();
+      expect(created.json().name).toBe("Ficus");
+
+      await app.close();
+      cleanup();
+    });
+
+    it("rejects photo exceeding 5MB limit", async () => {
+      const { app, cleanup } = createTestAppWithPhotos();
+
+      // Create a 6MB buffer
+      const bigContent = Buffer.alloc(6 * 1024 * 1024, "x");
+
+      const { body, boundary } = buildMultipartBody(
+        { name: "BigPlant", intervalDays: "7" },
+        { name: "big.jpg", content: bigContent, contentType: "image/jpeg" }
+      );
+
+      const created = await app.inject({
+        method: "POST",
+        url: `/api/plants?${WINDOW}`,
+        payload: body,
+        headers: { "content-type": `multipart/form-data; boundary=${boundary}` }
+      });
+
+      expect(created.statusCode).toBe(413);
+
+      await app.close();
+      cleanup();
+    });
+
+    it("serves uploaded photo file at /photos/{filename}", async () => {
+      const { app, cleanup } = createTestAppWithPhotos();
+
+      const { body, boundary } = buildMultipartBody(
+        { name: "Succulent", intervalDays: "14" },
+        { name: "succulent.png", content: Buffer.from("png-data-here"), contentType: "image/png" }
+      );
+
+      const created = await app.inject({
+        method: "POST",
+        url: `/api/plants?${WINDOW}`,
+        payload: body,
+        headers: { "content-type": `multipart/form-data; boundary=${boundary}` }
+      });
+
+      expect(created.statusCode).toBe(201);
+      const photoPath = created.json().photoPath;
+
+      const fetched = await app.inject({
+        method: "GET",
+        url: `/photos/${photoPath}`
+      });
+
+      expect(fetched.statusCode).toBe(200);
+      expect(fetched.body).toEqual(Buffer.from("png-data-here"));
+
+      await app.close();
+      cleanup();
+    });
+  });
 });
 
 function createTestApp() {
@@ -207,4 +316,46 @@ function applySchemaFile(databasePath: string): void {
     CREATE INDEX watering_events_watered_on_idx ON watering_events(watered_on);
   `);
   handle.sqlite.close();
+}
+
+function createTestAppWithPhotos() {
+  const { databasePath, cleanup } = createTempDatabasePath();
+  applySchemaFile(databasePath);
+  const photosDir = join(dirname(databasePath), "photos");
+  mkdirSync(photosDir, { recursive: true });
+
+  return {
+    app: buildApp({
+      databasePath,
+      today: "2026-05-03",
+      photosDir
+    }),
+    photosDir,
+    cleanup
+  };
+}
+
+function buildMultipartBody(
+  fields: Record<string, string>,
+  file?: { name: string; content: Buffer; contentType: string }
+): { body: Buffer; boundary: string } {
+  const boundary = `----FormBoundary${randomBytes(8).toString("hex")}`;
+  const parts: Buffer[] = [];
+
+  for (const [key, value] of Object.entries(fields)) {
+    parts.push(Buffer.from(
+      `--${boundary}\r\nContent-Disposition: form-data; name="${key}"\r\n\r\n${value}\r\n`
+    ));
+  }
+
+  if (file) {
+    parts.push(Buffer.from(
+      `--${boundary}\r\nContent-Disposition: form-data; name="photo"; filename="${file.name}"\r\nContent-Type: ${file.contentType}\r\n\r\n`
+    ));
+    parts.push(file.content);
+    parts.push(Buffer.from("\r\n"));
+  }
+
+  parts.push(Buffer.from(`--${boundary}--\r\n`));
+  return { body: Buffer.concat(parts), boundary };
 }

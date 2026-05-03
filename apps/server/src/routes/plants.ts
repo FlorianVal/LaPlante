@@ -28,6 +28,7 @@ const recordWateringSchema = z.object({
 export type PlantRoutesOptions = {
   db: AppDatabase;
   today?: string;
+  photosDir?: string;
 };
 
 export async function registerPlantRoutes(
