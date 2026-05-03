@@ -36,6 +36,23 @@
 - Keep recurrence logic outside React components.
 - Avoid pre-generating infinite watering occurrence rows.
 
+**Plans:**
+
+| Wave | Plan | What it builds |
+|------|------|----------------|
+| 1 | `01-01` | TypeScript workspace and minimal Fastify health server. |
+| 2 | `01-02` | Pure recurrence logic and tests for due dates, overdue state, and future windows. |
+| 2 | `01-03` | Drizzle SQLite schema, query layer, persistence tests, and blocking schema push. |
+| 3 | `01-04` | Plant/watering API routes combining persistence with derived schedule summaries. |
+
+**Wave 2 depends on Wave 1 completion. Wave 3 depends on Wave 2 completion.**
+
+**Cross-cutting constraints:**
+- Schedule summaries must expose derived due/overdue/future-date data instead of raw persistence only.
+- Recurrence must remain day-level and interval-based.
+- Watering confirmations reset cadence from the actual confirmation date.
+- Persistence must use recurrence rules and watering events, not generated occurrence rows.
+
 ### Phase 2: Timeline Main Screen
 
 **Goal:** Build the tablet-first watering timeline as the main screen.
