@@ -1,0 +1,52 @@
+.row {
+  display: contents;
+}
+
+.cornerCell {
+  position: sticky;
+  left: 0;
+  top: 0;
+  z-index: 3;
+  width: var(--name-column-width);
+  height: var(--header-row-height);
+  background: var(--color-bg-secondary);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.cell {
+  width: var(--cell-size);
+  height: var(--header-row-height);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--color-bg-secondary);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.today {
+  background: var(--color-bg-secondary);
+}
+
+.todayLabel {
+  font-size: var(--font-label);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-now-marker);
+  line-height: var(--line-height-label);
+}
+
+.dayOfMonth {
+  font-size: var(--font-body);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-body);
+}
+
+.dayOfWeek {
+  font-size: var(--font-label);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-label);
+}

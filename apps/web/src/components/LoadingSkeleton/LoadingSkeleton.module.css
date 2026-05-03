@@ -1,0 +1,56 @@
+@keyframes pulse {
+  0% {
+    background: var(--color-skeleton);
+  }
+  50% {
+    background: var(--color-skeleton-active);
+  }
+  100% {
+    background: var(--color-skeleton);
+  }
+}
+
+.container {
+  width: 100%;
+  overflow: hidden;
+}
+
+.headerRow {
+  display: flex;
+  height: var(--header-row-height);
+  gap: var(--cell-gap);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.headerNameCell {
+  width: var(--name-column-width);
+  flex-shrink: 0;
+}
+
+.headerSkeletonCell {
+  width: var(--cell-size);
+  height: var(--header-row-height);
+  animation: pulse 1.5s ease-in-out infinite;
+  border-radius: var(--cell-radius);
+}
+
+.row {
+  display: flex;
+  height: var(--row-height);
+  gap: var(--cell-gap);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.nameSkeleton {
+  width: var(--name-column-width);
+  flex-shrink: 0;
+  animation: pulse 1.5s ease-in-out infinite;
+  border-radius: var(--cell-radius);
+}
+
+.cellSkeleton {
+  width: var(--cell-size);
+  height: var(--row-height);
+  animation: pulse 1.5s ease-in-out infinite;
+  border-radius: var(--cell-radius);
+}

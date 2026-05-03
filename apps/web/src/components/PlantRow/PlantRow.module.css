@@ -1,0 +1,42 @@
+.row {
+  display: contents;
+}
+
+.nameColumn {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  width: var(--name-column-width);
+  height: var(--row-height);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 0 var(--space-md);
+  background: var(--color-bg-secondary);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.nameColumn:hover {
+  background: var(--color-bg-primary);
+}
+
+.iconPlaceholder {
+  width: var(--icon-placeholder-size);
+  height: var(--icon-placeholder-size);
+  border-radius: var(--space-xs);
+  background: var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--color-text-secondary);
+}
+
+.name {
+  font-size: var(--font-body);
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: var(--line-height-body);
+}

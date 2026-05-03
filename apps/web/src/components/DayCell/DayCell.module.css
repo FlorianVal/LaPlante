@@ -1,0 +1,35 @@
+.cell {
+  width: var(--cell-size);
+  height: var(--cell-size);
+  border-radius: var(--cell-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+}
+
+.today {
+  background: var(--color-bg-secondary);
+}
+
+.future {
+  background: var(--color-accent-light);
+}
+
+.overdue {
+  background: var(--color-overdue-light);
+}
+
+.dot {
+  width: var(--dot-size);
+  height: var(--dot-size);
+  border-radius: 50%;
+}
+
+.future .dot {
+  background: var(--color-accent);
+}
+
+.overdue .dot {
+  background: var(--color-overdue);
+}
