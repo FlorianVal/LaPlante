@@ -15,6 +15,7 @@ interface TimelineProps {
   error: string | null;
   onRetry: () => void;
   currentTime: Date;
+  onEmptyStateClick?: () => void;
 }
 
 const PAST_DAYS = 7;
@@ -41,6 +42,7 @@ export function Timeline({
   error,
   onRetry,
   currentTime,
+  onEmptyStateClick,
 }: TimelineProps) {
   const today = useMemo(() => todayISO(currentTime), [currentTime]);
   const dates = useMemo(() => generateDateRange(today), [today]);
@@ -72,7 +74,7 @@ export function Timeline({
   }
 
   if (plants.length === 0) {
-    return <EmptyState />;
+    return <EmptyState onClick={onEmptyStateClick} />;
   }
 
   return (

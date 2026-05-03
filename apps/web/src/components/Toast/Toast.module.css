@@ -1,0 +1,38 @@
+.toast {
+  position: fixed;
+  bottom: var(--space-xl);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  max-width: 360px;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--space-2xl);
+  background: var(--color-text-primary);
+  color: var(--color-bg-primary);
+  font-size: var(--font-body);
+  font-family: var(--font-family);
+  z-index: 100;
+  transition: opacity 200ms ease-out, transform 200ms ease-out;
+}
+
+.entering {
+  animation: slideUp 200ms ease-out;
+}
+
+.exiting {
+  opacity: 0;
+  transform: translateX(-50%) translateY(16px);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}

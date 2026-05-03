@@ -54,5 +54,5 @@ export function usePlants() {
     return () => clearInterval(interval);
   }, [fetchPlantsData]);
 
-  return { plants, loading, error, retry: fetchPlantsData };
+  return { plants, loading, error, retry: fetchPlantsData, refresh: fetchPlantsData };
 }

@@ -1,0 +1,234 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  animation: fadeIn 150ms ease-out;
+}
+
+.card {
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--space-sm);
+  padding: var(--space-lg);
+  max-width: 480px;
+  width: 100%;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  animation: scaleIn 150ms ease-out;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-lg);
+}
+
+.title {
+  font-size: var(--font-heading);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  padding: var(--space-xs);
+  display: flex;
+  align-items: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.label {
+  font-size: var(--font-label);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+}
+
+.input {
+  font-size: var(--font-body);
+  font-family: var(--font-family);
+  border: 1px solid var(--color-border);
+  border-radius: var(--space-xs);
+  padding: var(--space-sm) var(--space-md);
+  color: var(--color-text-primary);
+  background: var(--color-bg-primary);
+  outline: none;
+}
+
+.input:focus {
+  border-color: var(--color-accent);
+}
+
+.inputError {
+  border-color: #ef4444;
+}
+
+.errorText {
+  font-size: var(--font-label);
+  color: #ef4444;
+}
+
+.photoArea {
+  border: 2px dashed var(--color-border);
+  border-radius: var(--space-xs);
+  padding: var(--space-lg);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
+  transition: border-color 150ms;
+}
+
+.photoArea:hover {
+  border-color: var(--color-accent);
+}
+
+.photoAreaError {
+  border-color: #ef4444;
+}
+
+.photoPreview {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: var(--space-xs);
+}
+
+.photoPrompt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-xs);
+  color: var(--color-text-secondary);
+}
+
+.photoHint {
+  font-size: var(--font-label);
+}
+
+.changePhoto {
+  background: none;
+  border: none;
+  color: var(--color-accent);
+  cursor: pointer;
+  font-size: var(--font-label);
+  padding: var(--space-xs) 0;
+  text-align: left;
+}
+
+.fileInput {
+  display: none;
+}
+
+.recurrenceRow {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.preset {
+  font-size: var(--font-body);
+  font-weight: var(--font-weight-semibold);
+  font-family: var(--font-family);
+  border: 1px solid var(--color-border);
+  border-radius: var(--space-xs);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--color-bg-primary);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 150ms;
+  height: 44px;
+}
+
+.preset:hover {
+  background: var(--color-accent-light);
+}
+
+.presetActive {
+  border: 2px solid var(--color-accent);
+  background: var(--color-accent-light);
+  color: var(--color-text-primary);
+}
+
+.customInput {
+  width: 80px;
+  height: 44px;
+  text-align: center;
+}
+
+.formError {
+  font-size: var(--font-body);
+  color: #ef4444;
+  text-align: center;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-md);
+  margin-top: var(--space-sm);
+}
+
+.cancelButton {
+  background: none;
+  border: none;
+  color: var(--color-text-secondary);
+  font-size: var(--font-body);
+  font-family: var(--font-family);
+  cursor: pointer;
+  height: 44px;
+  padding: 0 var(--space-md);
+}
+
+.submitButton {
+  background: var(--color-accent);
+  color: white;
+  border: none;
+  border-radius: var(--space-xs);
+  padding: var(--space-sm) var(--space-xl);
+  font-size: var(--font-body);
+  font-weight: var(--font-weight-semibold);
+  font-family: var(--font-family);
+  cursor: pointer;
+  height: 44px;
+  transition: opacity 150ms;
+}
+
+.submitButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.submitButton:not(:disabled):hover {
+  opacity: 0.9;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
