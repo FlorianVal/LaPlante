@@ -9,6 +9,7 @@ try {
     host: config.host,
     port: config.port
   });
+  app.log.info(`LaPlante server listening on ${config.host}:${config.port}`);
 } catch (error) {
   app.log.error(error);
   process.exit(1);
