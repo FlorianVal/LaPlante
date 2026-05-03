@@ -85,12 +85,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | SERV-01 | Phase 1, Phase 4 | Pending |
-| SERV-02 | Phase 1 | Pending |
-| SERV-03 | Phase 1 | Pending |
-| SERV-04 | Phase 1 | Pending |
+| SERV-02 | Phase 1 | Implemented |
+| SERV-03 | Phase 1 | Implemented |
+| SERV-04 | Phase 1 | Implemented |
 | PLNT-01 | Phase 3 | Pending |
 | PLNT-02 | Phase 3 | Pending |
-| PLNT-03 | Phase 1, Phase 3 | Pending |
+| PLNT-03 | Phase 1, Phase 3 | Partially implemented |
 | PLNT-04 | Phase 3 | Pending |
 | TIME-01 | Phase 2 | Pending |
 | TIME-02 | Phase 2 | Pending |
@@ -99,10 +99,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | TIME-05 | Phase 2, Phase 4 | Pending |
 | WATR-01 | Phase 4 | Pending |
 | WATR-02 | Phase 4 | Pending |
-| WATR-03 | Phase 1, Phase 4 | Pending |
-| WATR-04 | Phase 1, Phase 4 | Pending |
-| PERS-01 | Phase 1, Phase 4 | Pending |
-| PERS-02 | Phase 1, Phase 4 | Pending |
+| WATR-03 | Phase 1, Phase 4 | Partially implemented |
+| WATR-04 | Phase 1, Phase 4 | Partially implemented |
+| PERS-01 | Phase 1, Phase 4 | Partially implemented |
+| PERS-02 | Phase 1, Phase 4 | Partially implemented |
 | PERS-03 | Phase 3, Phase 4 | Pending |
 
 **Coverage:**
@@ -112,4 +112,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-05-03*
-*Last updated: 2026-05-03 after roadmap creation*
+*Last updated: 2026-05-03 after Phase 1 execution*

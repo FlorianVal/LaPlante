@@ -20,6 +20,8 @@
 
 **Goal:** Establish local persistence, API shape, and recurrence logic before the UI depends on it.
 
+**Status:** Complete — implemented and verified on 2026-05-03.
+
 **Requirements:** SERV-01, SERV-02, SERV-03, SERV-04, PLNT-03, WATR-03, WATR-04, PERS-01, PERS-02
 
 **UI hint:** no
@@ -40,10 +42,10 @@
 
 | Wave | Plan | What it builds |
 |------|------|----------------|
-| 1 | `01-01` | TypeScript workspace and minimal Fastify health server. |
-| 2 | `01-02` | Pure recurrence logic and tests for due dates, overdue state, and future windows. |
-| 2 | `01-03` | Drizzle SQLite schema, query layer, persistence tests, and blocking schema push. |
-| 3 | `01-04` | Plant/watering API routes combining persistence with derived schedule summaries. |
+| 1 | `01-01` | TypeScript workspace and minimal Fastify health server. Complete. |
+| 2 | `01-02` | Pure recurrence logic and tests for due dates, overdue state, and future windows. Complete. |
+| 2 | `01-03` | Drizzle SQLite schema, query layer, persistence tests, and blocking schema push. Complete. |
+| 3 | `01-04` | Plant/watering API routes combining persistence with derived schedule summaries. Complete. |
 
 **Wave 2 depends on Wave 1 completion. Wave 3 depends on Wave 2 completion.**
 
