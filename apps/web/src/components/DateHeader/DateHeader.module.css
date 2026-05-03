@@ -14,7 +14,7 @@
 }
 
 .cell {
-  width: var(--cell-size);
+  width: var(--cell-width);
   height: var(--header-row-height);
   display: flex;
   flex-direction: column;

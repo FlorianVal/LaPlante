@@ -1,4 +1,4 @@
-import { useMemo, useRef, useEffect } from 'react';
+import { useMemo, useRef, useEffect, useCallback } from 'react';
 import type { PlantResponse, ISODateString } from '@laplante/shared';
 import { todayISO, addCalendarDays, compareISODate } from '@laplante/shared';
 import { DateHeader } from '../DateHeader/DateHeader';
@@ -7,6 +7,7 @@ import { NowMarker } from '../NowMarker/NowMarker';
 import { EmptyState } from '../EmptyState/EmptyState';
 import { ErrorState } from '../ErrorState/ErrorState';
 import { LoadingSkeleton } from '../LoadingSkeleton/LoadingSkeleton';
+import { confirmWatering } from '../../lib/api';
 import styles from './Timeline.module.css';
 
 interface TimelineProps {
@@ -16,12 +17,14 @@ interface TimelineProps {
   onRetry: () => void;
   currentTime: Date;
   onEmptyStateClick?: () => void;
+  onRefresh: () => void;
+  onToastError: (message: string) => void;
 }
 
 const PAST_DAYS = 7;
 const FUTURE_DAYS = 7;
 const NAME_COLUMN_WIDTH = 160;
-const CELL_SIZE = 48;
+const CELL_WIDTH = 56;
 const CELL_GAP = 2;
 
 function generateDateRange(today: ISODateString): ISODateString[] {
@@ -43,6 +46,8 @@ export function Timeline({
   onRetry,
   currentTime,
   onEmptyStateClick,
+  onRefresh,
+  onToastError,
 }: TimelineProps) {
   const today = useMemo(() => todayISO(currentTime), [currentTime]);
   const dates = useMemo(() => generateDateRange(today), [today]);
@@ -63,7 +68,16 @@ export function Timeline({
     }
   }, [loading, plants]);
 
-  const gridTemplateColumns = `var(--name-column-width) repeat(${dates.length}, var(--cell-size))`;
+  const handleConfirmWatering = useCallback(async (plantId: string) => {
+    try {
+      await confirmWatering(plantId);
+      onRefresh();
+    } catch {
+      onToastError('Could not record watering. Please try again.');
+    }
+  }, [onRefresh, onToastError]);
+
+  const gridTemplateColumns = `var(--name-column-width) repeat(${dates.length}, var(--cell-width))`;
 
   if (loading) {
     return <LoadingSkeleton />;
@@ -91,6 +105,7 @@ export function Timeline({
             plant={plant}
             dates={dates}
             today={today}
+            onConfirmWatering={handleConfirmWatering}
           />
         ))}
       </div>
@@ -98,7 +113,7 @@ export function Timeline({
         todayIndex={todayIndex}
         currentTime={currentTime}
         nameColumnWidth={NAME_COLUMN_WIDTH}
-        cellSize={CELL_SIZE}
+        cellSize={CELL_WIDTH}
         cellGap={CELL_GAP}
       />
     </div>

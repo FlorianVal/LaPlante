@@ -34,6 +34,8 @@ function App() {
         onRetry={retry}
         currentTime={currentTime}
         onEmptyStateClick={handleEmptyStateClick}
+        onRefresh={refresh}
+        onToastError={handleToast}
       />
       <button
         className={styles.fab}

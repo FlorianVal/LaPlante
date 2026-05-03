@@ -8,6 +8,7 @@ interface PlantRowProps {
   plant: PlantResponse;
   dates: ISODateString[];
   today: ISODateString;
+  onConfirmWatering?: (plantId: string) => void;
 }
 
 function getCellState(
@@ -33,7 +34,7 @@ function getCellState(
   return 'empty';
 }
 
-export function PlantRow({ plant, dates, today }: PlantRowProps) {
+export function PlantRow({ plant, dates, today, onConfirmWatering }: PlantRowProps) {
   return (
     <div className={styles.row}>
       <div className={styles.nameColumn}>
@@ -50,14 +51,19 @@ export function PlantRow({ plant, dates, today }: PlantRowProps) {
         </div>
         <span className={styles.name}>{plant.name}</span>
       </div>
-      {dates.map((date) => (
-        <DayCell
-          key={date}
-          state={getCellState(date, plant, today)}
-          isToday={compareISODate(date, today) === 0}
-          date={date}
-        />
-      ))}
+      {dates.map((date) => {
+        const cellState = getCellState(date, plant, today);
+        return (
+          <DayCell
+            key={date}
+            state={cellState}
+            isToday={compareISODate(date, today) === 0}
+            date={date}
+            onClick={cellState === 'overdue' && onConfirmWatering ? () => onConfirmWatering(plant.id) : undefined}
+            plantName={plant.name}
+          />
+        );
+      })}
     </div>
   );
 }
