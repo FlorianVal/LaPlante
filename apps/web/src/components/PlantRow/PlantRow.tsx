@@ -47,6 +47,7 @@ export function PlantRow({ plant, dates, today }: PlantRowProps) {
           key={date}
           state={getCellState(date, plant, today)}
           isToday={compareISODate(date, today) === 0}
+          date={date}
         />
       ))}
     </div>

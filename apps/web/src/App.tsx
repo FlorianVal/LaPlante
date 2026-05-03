@@ -1,18 +1,11 @@
-import { useMemo, useState, useCallback } from 'react';
-import { getMockPlants } from './lib/mock-data';
 import { Timeline } from './components/Timeline/Timeline';
+import { usePlants } from './hooks/usePlants';
+import { useCurrentTime } from './hooks/useCurrentTime';
 import styles from './App.module.css';
 
 function App() {
-  const [plants] = useState(() => getMockPlants());
-  const [loading] = useState(false);
-  const [error] = useState<string | null>(null);
-
-  const handleRetry = useCallback(() => {
-    // No-op for now, will be wired to API in Plan 02
-  }, []);
-
-  const currentTime = useMemo(() => new Date(), []);
+  const { plants, loading, error, retry } = usePlants();
+  const currentTime = useCurrentTime();
 
   return (
     <div className={styles.app}>
@@ -20,7 +13,7 @@ function App() {
         plants={plants}
         loading={loading}
         error={error}
-        onRetry={handleRetry}
+        onRetry={retry}
         currentTime={currentTime}
       />
     </div>

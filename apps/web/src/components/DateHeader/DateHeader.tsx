@@ -17,6 +17,7 @@ export function DateHeader({ dates, today }: DateHeaderProps) {
         return (
           <div
             key={date}
+            data-date={date}
             className={`${styles.cell} ${isToday ? styles.today : ''}`}
           >
             {isToday && <span className={styles.todayLabel}>Today</span>}

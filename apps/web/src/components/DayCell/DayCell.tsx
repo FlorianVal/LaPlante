@@ -3,9 +3,10 @@ import styles from './DayCell.module.css';
 interface DayCellProps {
   state: 'empty' | 'future' | 'overdue';
   isToday: boolean;
+  date?: string;
 }
 
-export function DayCell({ state, isToday }: DayCellProps) {
+export function DayCell({ state, isToday, date }: DayCellProps) {
   const classNames = [
     styles.cell,
     isToday ? styles.today : '',
@@ -16,7 +17,7 @@ export function DayCell({ state, isToday }: DayCellProps) {
     .join(' ');
 
   return (
-    <div className={classNames}>
+    <div className={classNames} {...(date ? { 'data-date': date } : {})}>
       {(state === 'future' || state === 'overdue') && (
         <div className={styles.dot} />
       )}
