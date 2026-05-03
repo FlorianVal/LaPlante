@@ -20,7 +20,8 @@ export type BuildAppOptions = {
 };
 
 export function buildApp(options: BuildAppOptions = {}): FastifyInstance {
-  mkdirSync(PHOTOS_DIR, { recursive: true });
+  const photosDir = options.photosDir ?? PHOTOS_DIR;
+  mkdirSync(photosDir, { recursive: true });
 
   const app = Fastify({
     logger: true
@@ -47,7 +48,7 @@ export function buildApp(options: BuildAppOptions = {}): FastifyInstance {
   });
 
   app.register(fastifyStatic, {
-    root: PHOTOS_DIR,
+    root: photosDir,
     prefix: "/photos/",
     serveDotFiles: false
   });
@@ -55,7 +56,7 @@ export function buildApp(options: BuildAppOptions = {}): FastifyInstance {
   void app.register(registerPlantRoutes, {
     db,
     today: options.today,
-    photosDir: options.photosDir ?? PHOTOS_DIR
+    photosDir
   });
 
   if (databaseHandle) {

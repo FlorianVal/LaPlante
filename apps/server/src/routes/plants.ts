@@ -1,3 +1,7 @@
+import { randomUUID } from "node:crypto";
+import { writeFileSync } from "node:fs";
+import path from "node:path";
+
 import { differenceInCalendarDays } from "date-fns";
 import type { FastifyInstance } from "fastify";
 import { z } from "zod";
@@ -73,12 +77,75 @@ export async function registerPlantRoutes(
       return reply.code(400).send({ error: window.error });
     }
 
-    const body = createPlantSchema.safeParse(request.body);
-    if (!body.success) {
-      return reply.code(400).send({ error: "Invalid plant input" });
+    const contentType = request.headers["content-type"] ?? "";
+    let name: string;
+    let intervalDays: number;
+    let lastWateredOn: ISODateString | undefined;
+    let photoPath: string | null = null;
+
+    const photosDir = options.photosDir ?? path.resolve("data/photos");
+
+    if (contentType.startsWith("multipart/form-data")) {
+      // Handle multipart upload using parts() iterator
+      // Collect all fields and the first file part
+      const fieldValues: Record<string, string> = {};
+      let fileData: { buffer: Buffer; mimetype: string; filename: string } | undefined;
+
+      for await (const part of request.parts()) {
+        if (part.type === "field") {
+          fieldValues[part.fieldname] = String(part.value);
+        } else if (part.type === "file" && !fileData) {
+          const buffer = await part.toBuffer();
+          if (!part.file.truncated) {
+            fileData = {
+              buffer,
+              mimetype: part.mimetype,
+              filename: part.filename
+            };
+          } else {
+            return reply.code(413).send({ error: "File too large" });
+          }
+        }
+      }
+
+      name = fieldValues["name"] ?? "";
+      intervalDays = Number(fieldValues["intervalDays"] ?? "0");
+      lastWateredOn = undefined;
+
+      // Process file if present and is an image
+      const allowedMimeTypes = ["image/jpeg", "image/png", "image/webp", "image/gif"];
+      if (fileData && fileData.mimetype && allowedMimeTypes.includes(fileData.mimetype)) {
+        const ext = fileData.filename?.split(".").pop() ?? "jpg";
+        const safeName = `${randomUUID()}.${ext}`;
+        const filePath = path.join(photosDir, safeName);
+
+        writeFileSync(filePath, fileData.buffer);
+        photoPath = safeName;
+      }
+
+      // Validate extracted fields
+      const parsed = createPlantSchema.safeParse({ name, intervalDays });
+      if (!parsed.success) {
+        return reply.code(400).send({ error: "Invalid plant input" });
+      }
+      name = parsed.data.name;
+      intervalDays = parsed.data.intervalDays;
+    } else {
+      // Handle JSON body (existing behavior)
+      const body = createPlantSchema.safeParse(request.body);
+      if (!body.success) {
+        return reply.code(400).send({ error: "Invalid plant input" });
+      }
+      name = body.data.name;
+      intervalDays = body.data.intervalDays;
+      lastWateredOn = body.data.lastWateredOn;
+      photoPath = body.data.photoPath ?? null;
     }
 
-    const plant = plantService.createPlant(body.data, window.value);
+    const plant = plantService.createPlant(
+      { name, intervalDays, lastWateredOn, photoPath },
+      window.value
+    );
     return reply.code(201).send(plant);
   });
 

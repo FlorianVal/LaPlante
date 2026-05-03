@@ -255,7 +255,7 @@ describe("plant routes", () => {
       });
 
       expect(fetched.statusCode).toBe(200);
-      expect(fetched.body).toEqual(Buffer.from("png-data-here"));
+      expect(fetched.body.toString()).toBe("png-data-here");
 
       await app.close();
       cleanup();
