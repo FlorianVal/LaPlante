@@ -10,7 +10,7 @@
 | Phase | Name | Goal | Requirements | UI hint |
 |-------|------|------|--------------|---------|
 | 1 | Server and Domain Foundation | Establish local persistence, API shape, and recurrence logic. | SERV-01, SERV-02, SERV-03, SERV-04, PLNT-03, WATR-03, WATR-04, PERS-01, PERS-02 | no |
-| 2 | Timeline Main Screen | Build the tablet-first watering timeline as the primary experience. | TIME-01, TIME-02, TIME-03, TIME-04, TIME-05 | yes |
+| 2 | Timeline Main Screen | 1/2 | In Progress|  |
 | 3 | Plant Creation and Photos | Let the user add plants with names, photos, and recurrence settings. | PLNT-01, PLNT-02, PLNT-04, PERS-03 | yes |
 | 4 | Watering Confirmation and Tablet Polish | Complete the yellow-alert watering loop and verify local tablet use. | WATR-01, WATR-02, SERV-01, TIME-05, PERS-01, PERS-02, PERS-03 | yes |
 
@@ -75,10 +75,10 @@
 - Keep day cell width and row height stable.
 - Use placeholder/mock plant data if Phase 3 is not done yet.
 
-**Plans:** 2 plans
+**Plans:** 1/2 plans executed
 
 Plans:
-- [ ] 02-01-PLAN.md — Scaffold apps/web with React/Vite, design tokens, mock data, and all timeline components (DayCell, PlantRow, DateHeader, NowMarker, states).
+- [x] 02-01-PLAN.md — Scaffold apps/web with React/Vite, design tokens, mock data, and all timeline components (DayCell, PlantRow, DateHeader, NowMarker, states).
 - [ ] 02-02-PLAN.md — Wire live API data with usePlants hook, 60s polling, scroll-to-today centering, and midnight crossover detection.
 
 **Plan 02 depends on Plan 01 completion.**

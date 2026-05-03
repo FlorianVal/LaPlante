@@ -23,11 +23,11 @@ Requirements for the initial local tablet release. Each maps to roadmap phases.
 
 ### Timeline
 
-- [ ] **TIME-01**: User sees a day-based timeline table as the main screen.
-- [ ] **TIME-02**: Each plant is displayed on its own timeline row.
-- [ ] **TIME-03**: The current date/time is represented by a vertical marker centered on the screen.
-- [ ] **TIME-04**: Future watering dates are displayed as small green cells to the right of the current marker.
-- [ ] **TIME-05**: Timeline layout remains readable and aligned on a tablet viewport.
+- [x] **TIME-01**: User sees a day-based timeline table as the main screen.
+- [x] **TIME-02**: Each plant is displayed on its own timeline row.
+- [x] **TIME-03**: The current date/time is represented by a vertical marker centered on the screen.
+- [x] **TIME-04**: Future watering dates are displayed as small green cells to the right of the current marker.
+- [x] **TIME-05**: Timeline layout remains readable and aligned on a tablet viewport.
 
 ### Watering
 
@@ -92,11 +92,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PLNT-02 | Phase 3 | Pending |
 | PLNT-03 | Phase 1, Phase 3 | Partially implemented |
 | PLNT-04 | Phase 3 | Pending |
-| TIME-01 | Phase 2 | Pending |
-| TIME-02 | Phase 2 | Pending |
-| TIME-03 | Phase 2 | Pending |
-| TIME-04 | Phase 2 | Pending |
-| TIME-05 | Phase 2, Phase 4 | Pending |
+| TIME-01 | Phase 2 | Complete |
+| TIME-02 | Phase 2 | Complete |
+| TIME-03 | Phase 2 | Complete |
+| TIME-04 | Phase 2 | Complete |
+| TIME-05 | Phase 2, Phase 4 | Complete |
 | WATR-01 | Phase 4 | Pending |
 | WATR-02 | Phase 4 | Pending |
 | WATR-03 | Phase 1, Phase 4 | Partially implemented |
