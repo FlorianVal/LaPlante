@@ -1,11 +1,12 @@
 .cell {
-  width: var(--cell-size);
-  height: var(--cell-size);
+  width: var(--cell-width);
+  height: var(--cell-height);
   border-radius: var(--cell-radius);
   display: flex;
   align-items: center;
   justify-content: center;
   background: transparent;
+  transition: background-color 0.25s ease;
 }
 
 .today {
@@ -28,8 +29,20 @@
 
 .future .dot {
   background: var(--color-accent);
+  transition: background-color 0.25s ease;
 }
 
 .overdue .dot {
   background: var(--color-overdue);
+  transition: background-color 0.25s ease;
+}
+
+.clickable {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.clickable:active {
+  transform: scale(0.92);
+  transition: transform 0.1s ease;
 }

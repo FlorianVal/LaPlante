@@ -36,7 +36,8 @@
   --line-height-label: 1.4;
   --line-height-heading: 1.2;
   /* Grid dimensions */
-  --cell-size: 48px;
+  --cell-width: 56px;
+  --cell-height: 48px;
   --cell-gap: 2px;
   --cell-radius: 4px;
   --row-height: 64px;

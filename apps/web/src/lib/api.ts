@@ -34,3 +34,13 @@ export async function createPlant(formData: FormData): Promise<PlantResponse> {
   }
   return res.json();
 }
+
+export async function confirmWatering(plantId: string): Promise<void> {
+  const { from, to } = getDateWindow();
+  const res = await fetch(`${API_BASE}/plants/${plantId}/waterings?from=${from}&to=${to}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({}),
+  });
+  if (!res.ok) throw new Error('Could not confirm watering');
+}
