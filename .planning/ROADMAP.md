@@ -134,7 +134,7 @@ Plans:
 **Plans:** 2 plans
 
 Plans:
-- [ ] 04-01-PLAN.md -- Wire tap-to-confirm watering interaction, rectangular cell dimensions, DayCell onClick, confirmWatering API client, CSS transition.
+- [x] 04-01-PLAN.md -- Wire tap-to-confirm watering interaction, rectangular cell dimensions, DayCell onClick, confirmWatering API client, CSS transition.
 - [ ] 04-02-PLAN.md -- Tablet kiosk configuration (viewport meta, Vite LAN host), automated persistence smoke tests.
 
 **Plan 02 depends on Plan 01 completion.**

@@ -31,10 +31,10 @@ Requirements for the initial local tablet release. Each maps to roadmap phases.
 
 ### Watering
 
-- [ ] **WATR-01**: User sees one yellow overdue alert on a plant row when that plant is late for watering.
-- [ ] **WATR-02**: User can tap the yellow overdue alert to mark the plant as watered.
-- [ ] **WATR-03**: After watering is confirmed, the overdue alert disappears and the plant schedule recalculates from the confirmation.
-- [ ] **WATR-04**: Multiple missed recurrence intervals still produce only one overdue alert per plant.
+- [x] **WATR-01**: User sees one yellow overdue alert on a plant row when that plant is late for watering.
+- [x] **WATR-02**: User can tap the yellow overdue alert to mark the plant as watered.
+- [x] **WATR-03**: After watering is confirmed, the overdue alert disappears and the plant schedule recalculates from the confirmation.
+- [x] **WATR-04**: Multiple missed recurrence intervals still produce only one overdue alert per plant.
 
 ### Persistence
 
@@ -97,8 +97,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | TIME-03 | Phase 2 | Complete |
 | TIME-04 | Phase 2 | Complete |
 | TIME-05 | Phase 2, Phase 4 | Complete |
-| WATR-01 | Phase 4 | Pending |
-| WATR-02 | Phase 4 | Pending |
+| WATR-01 | Phase 4 | Complete |
+| WATR-02 | Phase 4 | Complete |
 | WATR-03 | Phase 1, Phase 4 | Partially implemented |
 | WATR-04 | Phase 1, Phase 4 | Partially implemented |
 | PERS-01 | Phase 1, Phase 4 | Partially implemented |
