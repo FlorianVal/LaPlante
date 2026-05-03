@@ -4,7 +4,8 @@ export default defineConfig({
   test: {
     include: [
       "apps/**/*.test.ts",
-      "packages/**/*.test.ts"
+      "packages/**/*.test.ts",
+      "src/**/*.test.ts"
     ]
   }
 });
