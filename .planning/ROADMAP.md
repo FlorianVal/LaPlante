@@ -79,7 +79,7 @@
 
 Plans:
 - [x] 02-01-PLAN.md — Scaffold apps/web with React/Vite, design tokens, mock data, and all timeline components (DayCell, PlantRow, DateHeader, NowMarker, states).
-- [ ] 02-02-PLAN.md — Wire live API data with usePlants hook, 60s polling, scroll-to-today centering, and midnight crossover detection.
+- [x] 02-02-PLAN.md — Wire live API data with usePlants hook, 60s polling, scroll-to-today centering, and midnight crossover detection.
 
 **Plan 02 depends on Plan 01 completion.**
 
