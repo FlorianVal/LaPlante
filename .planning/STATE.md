@@ -24,7 +24,7 @@ progress:
 See: `.planning/PROJECT.md` (updated 2026-05-03)
 
 **Core value:** The tablet must make it obvious which plants need watering now and let the user confirm watering with one tap.
-**Current focus:** Plan the tablet-first timeline main screen.
+**Current focus:** Phase 02 — Timeline Main Screen
 
 ## Workflow Settings
 
