@@ -38,7 +38,15 @@ export function PlantRow({ plant, dates, today }: PlantRowProps) {
     <div className={styles.row}>
       <div className={styles.nameColumn}>
         <div className={styles.iconPlaceholder}>
-          <Flower2 size={20} />
+          {plant.photoPath ? (
+            <img
+              src={`/photos/${plant.photoPath}`}
+              alt={plant.name}
+              className={styles.plantPhoto}
+            />
+          ) : (
+            <Flower2 size={20} />
+          )}
         </div>
         <span className={styles.name}>{plant.name}</span>
       </div>

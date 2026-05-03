@@ -32,6 +32,13 @@
   color: var(--color-text-secondary);
 }
 
+.plantPhoto {
+  width: var(--icon-placeholder-size);
+  height: var(--icon-placeholder-size);
+  border-radius: var(--space-xs);
+  object-fit: cover;
+}
+
 .name {
   font-size: var(--font-body);
   color: var(--color-text-primary);

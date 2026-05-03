@@ -6,6 +6,12 @@
   min-height: 100vh;
   gap: var(--space-md);
   padding: var(--space-xl);
+  cursor: pointer;
+  transition: background-color 150ms;
+}
+
+.container:hover {
+  background-color: var(--color-bg-primary);
 }
 
 .icon {
@@ -24,4 +30,11 @@
   color: var(--color-text-secondary);
   margin: 0;
   text-align: center;
+}
+
+.action {
+  font-size: var(--font-body);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-accent);
+  margin-top: var(--space-sm);
 }

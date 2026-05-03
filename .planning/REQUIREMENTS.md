@@ -19,7 +19,7 @@ Requirements for the initial local tablet release. Each maps to roadmap phases.
 - [x] **PLNT-01**: User can add a plant with a required name.
 - [x] **PLNT-02**: User can attach a photo when adding a plant.
 - [x] **PLNT-03**: User can define a day-based watering recurrence for each plant.
-- [ ] **PLNT-04**: Newly added plants appear as new rows in the main timeline.
+- [x] **PLNT-04**: Newly added plants appear as new rows in the main timeline.
 
 ### Timeline
 
@@ -90,8 +90,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | SERV-04 | Phase 1 | Implemented |
 | PLNT-01 | Phase 3 | Complete |
 | PLNT-02 | Phase 3 | Complete |
-| PLNT-03 | Phase 1, Phase 3 | Partially implemented |
-| PLNT-04 | Phase 3 | Pending |
+| PLNT-03 | Phase 1, Phase 3 | Complete |
+| PLNT-04 | Phase 3 | Complete |
 | TIME-01 | Phase 2 | Complete |
 | TIME-02 | Phase 2 | Complete |
 | TIME-03 | Phase 2 | Complete |
@@ -112,4 +112,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-05-03*
-*Last updated: 2026-05-03 after Phase 1 execution*
+*Last updated: 2026-05-03 after Phase 3 execution*
