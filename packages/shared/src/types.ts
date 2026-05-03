@@ -13,6 +13,18 @@ export type PlantScheduleSummary = {
   futureWateringDates: ISODateString[];
 };
 
+export type ScheduleWindow = {
+  from: ISODateString;
+  to: ISODateString;
+};
+
+export type BuildScheduleSummaryInput = {
+  intervalDays: number;
+  lastWateredOn: ISODateString;
+  window: ScheduleWindow;
+  today?: ISODateString;
+};
+
 export type PlantResponse = {
   id: PlantId;
   name: string;
