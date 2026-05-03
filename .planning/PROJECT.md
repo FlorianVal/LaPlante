@@ -14,7 +14,11 @@ The tablet must make it obvious which plants need watering now and let the user 
 
 ### Validated
 
-(None yet — ship to validate)
+- [x] Show a day-based timeline table with one row per plant. Validated in Phase 2: Timeline Main Screen
+- [x] Keep a vertical current-date marker centered on the main screen. Validated in Phase 2: Timeline Main Screen
+- [x] Show future watering occurrences as small green cells on the plant row. Validated in Phase 2: Timeline Main Screen
+- [x] Show a single yellow overdue alert on a plant row when watering is late. Validated in Phase 2: Timeline Main Screen
+- [x] Optimize the experience for a tablet that stays at home. Validated in Phase 2: Timeline Main Screen
 
 ### Active
 
@@ -80,4 +84,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-05-03 after initialization*
+*Last updated: 2026-05-03 after Phase 2 completion*
