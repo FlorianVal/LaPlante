@@ -75,6 +75,14 @@
 - Keep day cell width and row height stable.
 - Use placeholder/mock plant data if Phase 3 is not done yet.
 
+**Plans:** 2 plans
+
+Plans:
+- [ ] 02-01-PLAN.md — Scaffold apps/web with React/Vite, design tokens, mock data, and all timeline components (DayCell, PlantRow, DateHeader, NowMarker, states).
+- [ ] 02-02-PLAN.md — Wire live API data with usePlants hook, 60s polling, scroll-to-today centering, and midnight crossover detection.
+
+**Plan 02 depends on Plan 01 completion.**
+
 ### Phase 3: Plant Creation and Photos
 
 **Goal:** Let the user add household plants with visual identity and recurrence settings.
