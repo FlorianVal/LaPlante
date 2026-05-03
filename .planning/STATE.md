@@ -3,21 +3,21 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 current_phase: 4
-status: executing
-stopped_at: Completed 04-01-PLAN.md
-last_updated: "2026-05-03T21:52:09.086Z"
+status: completed
+stopped_at: Completed 04-02-PLAN.md
+last_updated: "2026-05-03T22:02:39.325Z"
 progress:
   total_phases: 4
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 10
-  completed_plans: 9
+  completed_plans: 10
 ---
 
 # State: LaPlante
 
 **Created:** 2026-05-03
 **Current phase:** 4
-**Status:** Executing
+**Status:** Complete
 
 ## Project Reference
 
@@ -56,7 +56,7 @@ See: `.planning/PROJECT.md` (updated 2026-05-03)
 | 1 | Server and Domain Foundation | Complete |
 | 2 | Timeline Main Screen | Complete |
 | 3 | Plant Creation and Photos | Complete |
-| 4 | Watering Confirmation and Tablet Polish | In Progress |
+| 4 | Watering Confirmation and Tablet Polish | Complete |
 
 ## Decisions
 
@@ -78,20 +78,26 @@ See: `.planning/PROJECT.md` (updated 2026-05-03)
 | 2026-05-03 | No success toast on watering confirmation -- visual update is the feedback | 04-01 execution |
 | 2026-05-03 | touch-action: manipulation only on clickable cells to prevent tablet double-tap zoom | 04-01 execution |
 | 2026-05-03 | CELL_WIDTH constant (56px) for NowMarker matching --cell-width token | 04-01 execution |
+| 2026-05-03 | Both maximum-scale=1.0 and user-scalable=no needed for iOS zoom lock | 04-02 execution |
+| 2026-05-03 | Vite host: true for LAN access; server already binds 0.0.0.0 | 04-02 execution |
+| 2026-05-03 | Persistence tests use file-based temp DBs (not :memory:) for restart scenarios | 04-02 execution |
 
 - [Phase 04]: Only overdue DayCells get onClick; future and empty cells remain non-interactive
 - [Phase 04]: No success toast on watering confirmation -- visual update is the feedback
 - [Phase 04]: touch-action: manipulation only on clickable cells to prevent tablet double-tap zoom
 - [Phase 04]: CELL_WIDTH constant (56px) for NowMarker matching --cell-width token
+- [Phase 04]: Both maximum-scale=1.0 and user-scalable=no needed for iOS zoom lock
+- [Phase 04]: Vite host: true for LAN access; server already binds 0.0.0.0
+- [Phase 04]: Persistence tests use file-based temp DBs (not :memory:) for restart scenarios
 
 ## Next Action
 
-Continue with 04-02-PLAN.md: Tablet kiosk configuration and persistence smoke tests.
+All phases complete. Project ready for milestone review.
 
 ## Last Session
 
-- **Stopped at:** Completed 04-01-PLAN.md
+- **Stopped at:** Completed 04-02-PLAN.md
 - **Resume file:** None
 
 ---
-*Last updated: 2026-05-03 after 04-01 execution*
+*Last updated: 2026-05-03 after 04-02 execution*
