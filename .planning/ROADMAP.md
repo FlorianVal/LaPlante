@@ -131,6 +131,14 @@ Plans:
 - Document local run/access path.
 - Keep notification and cloud concerns out of v1.
 
+**Plans:** 2 plans
+
+Plans:
+- [ ] 04-01-PLAN.md -- Wire tap-to-confirm watering interaction, rectangular cell dimensions, DayCell onClick, confirmWatering API client, CSS transition.
+- [ ] 04-02-PLAN.md -- Tablet kiosk configuration (viewport meta, Vite LAN host), automated persistence smoke tests.
+
+**Plan 02 depends on Plan 01 completion.**
+
 ## Requirement Coverage
 
 | Requirement | Phase |
