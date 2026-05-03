@@ -103,11 +103,11 @@ Plans:
 - Enforce upload limits and safe filenames.
 - Editing/deleting plants remains v2 unless needed for v1 verification.
 
-**Plans:** 2 plans
+**Plans:** 2 plans executed
 
 Plans:
-- [ ] 03-01-PLAN.md — Server multipart upload (@fastify/multipart), photo storage on disk, static serving (@fastify/static), Vite /photos proxy, multipart route tests.
-- [ ] 03-02-PLAN.md — Client AddPlantModal, Toast, "+" FAB, clickable EmptyState, PlantRow photo rendering, API createPlant, immediate refresh.
+- [x] 03-01-PLAN.md -- Server multipart upload (@fastify/multipart), photo storage on disk, static serving (@fastify/static), Vite /photos proxy, multipart route tests. Complete.
+- [x] 03-02-PLAN.md -- Client AddPlantModal, Toast, "+" FAB, clickable EmptyState, PlantRow photo rendering, API createPlant, immediate refresh. Complete.
 
 **Plan 02 depends on Plan 01 completion.**
 
