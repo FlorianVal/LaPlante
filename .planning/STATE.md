@@ -2,33 +2,29 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_phase: 04
-status: executing
-stopped_at: Phase 4 UI-SPEC approved
-last_updated: "2026-05-03T21:44:40.028Z"
+current_phase: 4
+status: completed
+stopped_at: Completed 04-02-PLAN.md
+last_updated: "2026-05-03T22:02:39.325Z"
 progress:
   total_phases: 4
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 10
-  completed_plans: 8
+  completed_plans: 10
 ---
 
 # State: LaPlante
 
 **Created:** 2026-05-03
-**Current phase:** 04
-**Status:** Executing Phase 04
+**Current phase:** 4
+**Status:** Complete
 
 ## Project Reference
 
 See: `.planning/PROJECT.md` (updated 2026-05-03)
 
 **Core value:** The tablet must make it obvious which plants need watering now and let the user confirm watering with one tap.
-<<<<<<< Updated upstream
-**Current focus:** Phase 04 — watering-confirmation-and-tablet-polish
-=======
-**Current focus:** Phase 03 — plant-creation-and-photos
->>>>>>> Stashed changes
+**Current focus:** Phase 04 -- Watering Confirmation and Tablet Polish
 
 ## Workflow Settings
 
@@ -59,8 +55,8 @@ See: `.planning/PROJECT.md` (updated 2026-05-03)
 |-------|------|--------|
 | 1 | Server and Domain Foundation | Complete |
 | 2 | Timeline Main Screen | Complete |
-| 3 | Plant Creation and Photos | Pending |
-| 4 | Watering Confirmation and Tablet Polish | Pending |
+| 3 | Plant Creation and Photos | Complete |
+| 4 | Watering Confirmation and Tablet Polish | Complete |
 
 ## Decisions
 
@@ -78,24 +74,30 @@ See: `.planning/PROJECT.md` (updated 2026-05-03)
 | 2026-05-03 | createPlant reuses getDateWindow in api.ts to match fetchPlants date range | 03-02 execution |
 | 2026-05-03 | Toast uses message identity comparison to trigger animation on new messages | 03-02 execution |
 | 2026-05-03 | EmptyState onClick is optional, enabling reuse with or without modal trigger | 03-02 execution |
+| 2026-05-03 | Only overdue DayCells get onClick; future and empty cells remain non-interactive | 04-01 execution |
+| 2026-05-03 | No success toast on watering confirmation -- visual update is the feedback | 04-01 execution |
+| 2026-05-03 | touch-action: manipulation only on clickable cells to prevent tablet double-tap zoom | 04-01 execution |
+| 2026-05-03 | CELL_WIDTH constant (56px) for NowMarker matching --cell-width token | 04-01 execution |
+| 2026-05-03 | Both maximum-scale=1.0 and user-scalable=no needed for iOS zoom lock | 04-02 execution |
+| 2026-05-03 | Vite host: true for LAN access; server already binds 0.0.0.0 | 04-02 execution |
+| 2026-05-03 | Persistence tests use file-based temp DBs (not :memory:) for restart scenarios | 04-02 execution |
+
+- [Phase 04]: Only overdue DayCells get onClick; future and empty cells remain non-interactive
+- [Phase 04]: No success toast on watering confirmation -- visual update is the feedback
+- [Phase 04]: touch-action: manipulation only on clickable cells to prevent tablet double-tap zoom
+- [Phase 04]: CELL_WIDTH constant (56px) for NowMarker matching --cell-width token
+- [Phase 04]: Both maximum-scale=1.0 and user-scalable=no needed for iOS zoom lock
+- [Phase 04]: Vite host: true for LAN access; server already binds 0.0.0.0
+- [Phase 04]: Persistence tests use file-based temp DBs (not :memory:) for restart scenarios
 
 ## Next Action
 
-Phase 3 client-side plan (03-02) complete. Both Phase 3 plans done. Transition to Phase 4: Watering Confirmation and Tablet Polish.
+All phases complete. Project ready for milestone review.
 
 ## Last Session
 
-<<<<<<< Updated upstream
-
-- **Stopped at:** Phase 4 UI-SPEC approved
-- **Resume file:** .planning/phases/04-watering-confirmation-and-tablet-polish/04-UI-SPEC.md
-
-=======
-
-- **Stopped at:** Phase 3 UI-SPEC approved
-- **Resume file:** .planning/phases/03-plant-creation-and-photos/03-UI-SPEC.md
-
->>>>>>> Stashed changes
+- **Stopped at:** Completed 04-02-PLAN.md
+- **Resume file:** None
 
 ---
-*Last updated: 2026-05-03 after 03-02 execution*
+*Last updated: 2026-05-03 after 04-02 execution*

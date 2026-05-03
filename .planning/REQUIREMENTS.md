@@ -9,7 +9,7 @@ Requirements for the initial local tablet release. Each maps to roadmap phases.
 
 ### Server
 
-- [ ] **SERV-01**: The app runs through a local server reachable from a tablet on the home network.
+- [x] **SERV-01**: The app runs through a local server reachable from a tablet on the home network.
 - [ ] **SERV-02**: The server persists data in a local SQLite database.
 - [ ] **SERV-03**: The server exposes API endpoints to list, create, and update plants.
 - [ ] **SERV-04**: The server exposes an API endpoint to record a watering confirmation for a plant.
@@ -38,8 +38,8 @@ Requirements for the initial local tablet release. Each maps to roadmap phases.
 
 ### Persistence
 
-- [ ] **PERS-01**: Plants remain available after browser refresh.
-- [ ] **PERS-02**: Plants and watering history remain available after server restart.
+- [x] **PERS-01**: Plants remain available after browser refresh.
+- [x] **PERS-02**: Plants and watering history remain available after server restart.
 - [x] **PERS-03**: Plant photos remain available after browser refresh and server restart.
 
 ## v2 Requirements
@@ -84,7 +84,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SERV-01 | Phase 1, Phase 4 | Pending |
+| SERV-01 | Phase 1, Phase 4 | Complete |
 | SERV-02 | Phase 1 | Implemented |
 | SERV-03 | Phase 1 | Implemented |
 | SERV-04 | Phase 1 | Implemented |
