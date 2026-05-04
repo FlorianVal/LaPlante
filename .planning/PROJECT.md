@@ -2,84 +2,78 @@
 
 ## What This Is
 
-LaPlante is a local web interface for tracking when each house plant needs watering. The main screen is a moving date-based table: each row is a plant, the center of the screen marks the current date and time, and future watering dates appear to the right as simple scheduled cells.
+LaPlante is a local web interface for tracking when each house plant needs watering. The main screen is a moving date-based table: each row is a plant, the center of the screen marks the current date and time, and future watering dates appear to the right as simple scheduled cells. Overdue plants show a yellow alert that can be tapped to confirm watering.
 
-The app is intended to run at home on a tablet, backed by a small local server on the home network. It is a practical household tool first: glance at the tablet, see what needs watering, and mark watering as done.
+The app runs at home on a tablet, backed by a small local server on the home network. It is a practical household tool: glance at the tablet, see what needs watering, tap to confirm.
 
 ## Core Value
 
 The tablet must make it obvious which plants need watering now and let the user confirm watering with one tap.
 
+## Current State
+
+**Shipped:** v1.0 (2026-05-04)
+**Tech stack:** React + Vite + TypeScript, Fastify + SQLite (better-sqlite3), CSS Modules
+**LOC:** ~2,450 TypeScript
+**Tests:** 17 server tests passing, 4 persistence smoke tests
+
 ## Requirements
 
-### Validated
+### Validated (v1.0)
 
-- [x] Show a day-based timeline table with one row per plant. Validated in Phase 2: Timeline Main Screen
-- [x] Keep a vertical current-date marker centered on the main screen. Validated in Phase 2: Timeline Main Screen
-- [x] Show future watering occurrences as small green cells on the plant row. Validated in Phase 2: Timeline Main Screen
-- [x] Show a single yellow overdue alert on a plant row when watering is late. Validated in Phase 2: Timeline Main Screen
-- [x] Optimize the experience for a tablet that stays at home. Validated in Phase 2: Timeline Main Screen
-- [x] Let each plant have a name, photo, and watering recurrence. Validated in Phase 3: Plant Creation and Photos
-- [x] Let the user add a plant from the interface, creating a new row. Validated in Phase 3: Plant Creation and Photos
-- [x] Plant photos persist across browser refresh and server restart. Validated in Phase 3: Plant Creation and Photos
-- [x] Let the user click the yellow alert to mark the plant as watered and return it to a green/current state. Validated in Phase 4: Watering Confirmation and Tablet Polish
-- [x] Persist plant and watering data through a small local server. Validated in Phase 4: Watering Confirmation and Tablet Polish
-- [x] Optimize the experience for a tablet that stays at home. Validated in Phase 4: Watering Confirmation and Tablet Polish
+- ✓ Day-based timeline table with one row per plant
+- ✓ Vertical current-date marker centered on screen
+- ✓ Green future watering cells on plant rows
+- ✓ Single yellow overdue alert per plant row
+- ✓ Tablet-optimized viewport and tap targets
+- ✓ Plant creation with name, photo, and recurrence
+- ✓ Tap yellow alert to mark as watered → cell transitions green
+- ✓ SQLite persistence through server restart
+- ✓ Photo persistence across browser refresh and server restart
+- ✓ LAN access via Vite host + server 0.0.0.0 binding
 
 ### Active
 
-None — all v1 requirements validated.
+None — all v1 requirements validated. Next milestone to be defined.
 
 ### Out of Scope
 
-- Multi-user accounts — the app is local to the household and does not need authentication for v1.
-- Cloud sync — the project should run locally at home, not depend on an external service.
-- Mobile app store packaging — tablet browser use is enough for v1.
-- Hour-level scheduling — watering is tracked by day, keeping the interface readable.
-- Showing every missed recurrence — v1 uses one yellow overdue alert per plant to keep the row simple.
+- Multi-user accounts — local household tool, no auth needed
+- Cloud sync — runs locally, no external service dependency
+- Mobile app store packaging — tablet browser is enough
+- Hour-level scheduling — day-based keeps interface readable
+- Showing every missed recurrence — single yellow alert keeps rows clean
+- Editing/deleting plants — deferred to v1.1+
 
 ## Context
 
-The project started from a concrete household need: follow watering schedules for different plants without relying on memory or a generic checklist. The desired interface is spatial and temporal: plants are rows, days move across the screen, and the current date/hour is represented by a vertical marker at the center.
+v1.0 shipped with 4 phases over 2 days. The core household loop works end-to-end: see yellow overdue alert → tap to confirm → cell transitions to green → future dates recalculate from confirmation.
 
-Future watering dates should feel lightweight, like small green cells. Past missed watering should stand out clearly as yellow, but without creating a cluttered trail of every missed recurrence. The expected daily use is simple: look at the tablet, see the yellow alert, water the plant, tap the alert.
-
-The data model should support at least plants, photos, recurrence settings, scheduled/derived watering dates, and watering confirmations. Because the project is local and tablet-focused, reliability and readability matter more than account systems or external integrations.
+**Known tech debt (non-blocking):**
+- Hardcoded #ef4444 error color (should be tokenized)
+- Toast uses Check icon for errors (needs type prop)
+- Orphaned GET /api/plants/:id route (no web consumer)
+- Mock data Orchid entry has contradictory overdue state
 
 ## Constraints
 
-- **Deployment**: Runs locally at home on a tablet — should be usable from a browser on the local network.
-- **Storage**: Uses a small local server — data should persist outside browser-only storage.
-- **Timeline**: Day-based scheduling — one visible unit is a day, not an hour.
-- **Overdue UX**: One overdue alert per plant — avoid clutter from multiple missed occurrences.
-- **Interface**: Main view is the moving watering table — avoid making the app a generic dashboard first.
-- **Input**: Plant creation needs name and photo — adding a plant should immediately create a new row.
+- **Deployment**: Local tablet on home network — browser-accessible via LAN
+- **Storage**: SQLite + filesystem photos — persists across restarts
+- **Timeline**: Day-level scheduling — one cell = one day
+- **Overdue UX**: One alert per plant — contiguous yellow block
+- **Interface**: Timeline is the primary screen — not a dashboard
+- **Input**: Plant creation needs name and photo
 
 ## Key Decisions
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Use a local server for persistence | The tablet should be a home interface, but data should not live only in one browser storage silo | — Pending |
-| Use day-level timeline cells | Plant watering rarely needs hour-level precision, and day cells keep the tablet UI readable | — Pending |
-| Show one overdue alert per plant | Missed recurrences should be obvious without overwhelming each row | — Pending |
-| Make the table the primary screen | The user's core mental model is a timeline row per plant, not a settings dashboard | — Pending |
-
-## Evolution
-
-This document evolves at phase transitions and milestone boundaries.
-
-**After each phase transition** (via `$gsd-transition`):
-1. Requirements invalidated? -> Move to Out of Scope with reason
-2. Requirements validated? -> Move to Validated with phase reference
-3. New requirements emerged? -> Add to Active
-4. Decisions to log? -> Add to Key Decisions
-5. "What This Is" still accurate? -> Update if drifted
-
-**After each milestone** (via `$gsd-complete-milestone`):
-1. Full review of all sections
-2. Core Value check — still the right priority?
-3. Audit Out of Scope — reasons still valid?
-4. Update Context with current state
+| Use local Fastify server + SQLite | Tablet needs persistence beyond browser, but no cloud | ✓ Works — 17 tests, data survives restart |
+| Day-level timeline cells | Plant watering doesn't need hour precision | ✓ Keeps tablet UI readable |
+| One overdue alert per plant | Multiple missed recurrences shouldn't clutter rows | ✓ Single contiguous yellow block |
+| Timeline as primary screen | Core mental model is row-per-plant, not settings | ✓ First screen users see |
+| CSS Modules + design tokens | Lightweight styling for a small app | ✓ Consistent spacing, color, typography |
+| Rectangular cells (56x48) | Wider tap targets for tablet touch | ✓ Better touch UX than square 48x48 |
 
 ---
-*Last updated: 2026-05-04 after Phase 4 completion*
+*Last updated: 2026-05-04 after v1.0 milestone*
