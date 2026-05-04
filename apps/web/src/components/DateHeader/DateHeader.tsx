@@ -11,7 +11,9 @@ interface DateHeaderProps {
 export function DateHeader({ dates, today }: DateHeaderProps) {
   return (
     <div className={styles.row}>
-      <div className={styles.cornerCell} />
+      <div className={styles.cornerCell}>
+        <span>Plantes</span>
+      </div>
       {dates.map((date) => {
         const isToday = compareISODate(date, today) === 0;
         return (
@@ -20,7 +22,7 @@ export function DateHeader({ dates, today }: DateHeaderProps) {
             data-date={date}
             className={`${styles.cell} ${isToday ? styles.today : ''}`}
           >
-            {isToday && <span className={styles.todayLabel}>Today</span>}
+            {isToday && <span className={styles.todayLabel}>Auj.</span>}
             <span className={styles.dayOfMonth}>
               {formatDayOfMonth(date)}
             </span>

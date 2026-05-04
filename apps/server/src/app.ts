@@ -1,4 +1,4 @@
-import { mkdirSync } from "node:fs";
+import { existsSync, mkdirSync } from "node:fs";
 import path from "node:path";
 
 import multipart from "@fastify/multipart";
@@ -62,6 +62,21 @@ export function buildApp(options: BuildAppOptions = {}): FastifyInstance {
   if (databaseHandle) {
     app.addHook("onClose", async () => {
       databaseHandle.sqlite.close();
+    });
+  }
+
+  // Serve React SPA in production (if public/ exists)
+  const publicDir = path.resolve("public");
+  if (existsSync(publicDir)) {
+    app.register(fastifyStatic, {
+      root: publicDir,
+      prefix: "/",
+      wildcard: false,
+      decorateReply: false
+    });
+    // SPA fallback: serve index.html for unmatched non-API routes
+    app.setNotFoundHandler(async (_req, reply) => {
+      return reply.sendFile("index.html");
     });
   }
 

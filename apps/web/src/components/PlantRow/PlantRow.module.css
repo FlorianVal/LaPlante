@@ -4,46 +4,84 @@
 
 .nameColumn {
   position: sticky;
-  left: 0;
-  z-index: 2;
+  left: var(--space-sm);
+  z-index: 3;
   width: var(--name-column-width);
   height: var(--row-height);
   display: flex;
   align-items: center;
-  gap: var(--space-sm);
+  gap: var(--space-md);
   padding: 0 var(--space-md);
-  background: var(--color-bg-secondary);
-  border-bottom: 1px solid var(--color-border);
+  background: linear-gradient(90deg, #ffffff 78%, rgba(255, 255, 255, 0.88));
+  border: 1px solid rgba(219, 231, 222, 0.9);
+  border-radius: 14px;
+  box-shadow: 8px 0 20px rgba(23, 33, 27, 0.06);
 }
 
 .nameColumn:hover {
-  background: var(--color-bg-primary);
+  background: #ffffff;
 }
 
 .iconPlaceholder {
   width: var(--icon-placeholder-size);
   height: var(--icon-placeholder-size);
-  border-radius: var(--space-xs);
-  background: var(--color-border);
+  border-radius: 14px;
+  background:
+    linear-gradient(135deg, rgba(23, 122, 71, 0.14), rgba(247, 183, 51, 0.14)),
+    var(--color-bg-wash);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  color: var(--color-text-secondary);
+  color: var(--color-accent);
+  overflow: hidden;
 }
 
 .plantPhoto {
   width: var(--icon-placeholder-size);
   height: var(--icon-placeholder-size);
-  border-radius: var(--space-xs);
   object-fit: cover;
+}
+
+.plantText {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
 .name {
   font-size: var(--font-body);
+  font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  line-height: var(--line-height-body);
+  line-height: 1.2;
+}
+
+.meta {
+  font-size: var(--font-label);
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.overdueMeta {
+  color: var(--color-overdue-strong);
+  font-weight: var(--font-weight-bold);
+}
+
+@media (max-width: 720px) {
+  .nameColumn {
+    left: var(--space-sm);
+    gap: var(--space-sm);
+    padding: 0 var(--space-sm);
+    border-radius: 12px;
+  }
+
+  .meta {
+    display: none;
+  }
 }

@@ -4,13 +4,23 @@
 
 .cornerCell {
   position: sticky;
-  left: 0;
+  left: var(--space-sm);
   top: 0;
-  z-index: 3;
+  z-index: 4;
   width: var(--name-column-width);
   height: var(--header-row-height);
-  background: var(--color-bg-secondary);
-  border-bottom: 1px solid var(--color-border);
+  background: #ffffff;
+  border: 1px solid rgba(219, 231, 222, 0.9);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  padding: 0 var(--space-md);
+  color: var(--color-text-secondary);
+  font-size: var(--font-label);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: 0;
+  box-shadow: 8px 0 20px rgba(23, 33, 27, 0.06);
 }
 
 .cell {
@@ -22,13 +32,17 @@
   justify-content: center;
   position: sticky;
   top: 0;
-  z-index: 1;
-  background: var(--color-bg-secondary);
-  border-bottom: 1px solid var(--color-border);
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(219, 231, 222, 0.9);
+  border-radius: 14px;
+  text-transform: capitalize;
 }
 
 .today {
-  background: var(--color-bg-secondary);
+  background:
+    linear-gradient(180deg, rgba(37, 99, 235, 0.12), #ffffff);
+  border-color: rgba(37, 99, 235, 0.35);
 }
 
 .todayLabel {
@@ -39,14 +53,25 @@
 }
 
 .dayOfMonth {
-  font-size: var(--font-body);
-  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-heading);
+  font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
-  line-height: var(--line-height-body);
+  line-height: 1.05;
 }
 
 .dayOfWeek {
-  font-size: var(--font-label);
+  font-size: var(--font-caption);
   color: var(--color-text-secondary);
   line-height: var(--line-height-label);
+}
+
+@media (max-width: 720px) {
+  .cornerCell {
+    padding: 0 var(--space-sm);
+    border-radius: 12px;
+  }
+
+  .cell {
+    border-radius: 12px;
+  }
 }

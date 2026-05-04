@@ -5,36 +5,33 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: transparent;
-  transition: background-color 0.25s ease;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(247, 250, 246, 0.86));
+  border: 1px solid rgba(219, 231, 222, 0.72);
+  color: var(--color-text-muted);
+  transition: transform 0.16s ease, box-shadow 0.16s ease, background-color 0.25s ease;
 }
 
 .today {
-  background: var(--color-bg-secondary);
+  background:
+    linear-gradient(180deg, rgba(37, 99, 235, 0.08), rgba(255, 255, 255, 0.9));
+  border-color: rgba(37, 99, 235, 0.28);
 }
 
 .future {
-  background: var(--color-accent-light);
+  background:
+    linear-gradient(180deg, rgba(223, 243, 230, 0.95), rgba(197, 231, 210, 0.82));
+  border-color: rgba(23, 122, 71, 0.22);
+  color: var(--color-accent-strong);
+  box-shadow: inset 0 -10px 18px rgba(23, 122, 71, 0.08);
 }
 
 .overdue {
-  background: var(--color-overdue-light);
-}
-
-.dot {
-  width: var(--dot-size);
-  height: var(--dot-size);
-  border-radius: 50%;
-}
-
-.future .dot {
-  background: var(--color-accent);
-  transition: background-color 0.25s ease;
-}
-
-.overdue .dot {
-  background: var(--color-overdue);
-  transition: background-color 0.25s ease;
+  background:
+    linear-gradient(180deg, #ffd36d, var(--color-confirm));
+  border-color: rgba(146, 64, 14, 0.28);
+  color: #4a2c05;
+  box-shadow: var(--shadow-touch);
 }
 
 .clickable {
@@ -42,7 +39,42 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+.clickable:hover {
+  transform: translateY(-1px);
+}
+
 .clickable:active {
-  transform: scale(0.92);
-  transition: transform 0.1s ease;
+  transform: scale(0.96);
+  transition: transform 0.08s ease;
+}
+
+.icon {
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.6));
+}
+
+.actionContent {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  font-size: var(--font-label);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+}
+
+.overdueTrail {
+  width: 22px;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(74, 44, 5, 0.46);
+}
+
+@media (max-width: 720px) {
+  .actionContent {
+    gap: 0;
+  }
+
+  .actionContent span {
+    display: none;
+  }
 }

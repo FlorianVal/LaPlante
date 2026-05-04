@@ -1,0 +1,8 @@
+node_modules
+dist
+*.tsbuildinfo
+.git
+.claude
+.planning
+data
+apps/server/data

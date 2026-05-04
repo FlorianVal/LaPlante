@@ -1,7 +1,9 @@
 node_modules/
 dist/
 *.tsbuildinfo
+.claude/
 data/*.sqlite
 data/*.sqlite-*
 data/photos/*
 !data/photos/.gitkeep
+apps/server/data/

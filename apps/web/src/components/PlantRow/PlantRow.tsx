@@ -35,6 +35,10 @@ function getCellState(
 }
 
 export function PlantRow({ plant, dates, today, onConfirmWatering }: PlantRowProps) {
+  const scheduleLabel = plant.schedule.isOverdue
+    ? 'En retard'
+    : `Tous les ${plant.recurrence.intervalDays} j`;
+
   return (
     <div className={styles.row}>
       <div className={styles.nameColumn}>
@@ -49,17 +53,23 @@ export function PlantRow({ plant, dates, today, onConfirmWatering }: PlantRowPro
             <Flower2 size={20} />
           )}
         </div>
-        <span className={styles.name}>{plant.name}</span>
+        <div className={styles.plantText}>
+          <span className={styles.name}>{plant.name}</span>
+          <span className={`${styles.meta} ${plant.schedule.isOverdue ? styles.overdueMeta : ''}`}>
+            {scheduleLabel}
+          </span>
+        </div>
       </div>
       {dates.map((date) => {
         const cellState = getCellState(date, plant, today);
+        const isToday = compareISODate(date, today) === 0;
         return (
           <DayCell
             key={date}
             state={cellState}
-            isToday={compareISODate(date, today) === 0}
+            isToday={isToday}
             date={date}
-            onClick={cellState === 'overdue' && onConfirmWatering ? () => onConfirmWatering(plant.id) : undefined}
+            onClick={cellState === 'overdue' && isToday && onConfirmWatering ? () => onConfirmWatering(plant.id) : undefined}
             plantName={plant.name}
           />
         );

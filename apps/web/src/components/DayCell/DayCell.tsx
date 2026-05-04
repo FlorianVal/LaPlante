@@ -1,3 +1,5 @@
+import type { KeyboardEvent } from 'react';
+import { Check, Droplets } from 'lucide-react';
 import styles from './DayCell.module.css';
 
 interface DayCellProps {
@@ -26,9 +28,9 @@ export function DayCell({ state, isToday, date, onClick, plantName }: DayCellPro
       {...(onClick ? {
         role: 'button',
         tabIndex: 0,
-        'aria-label': `Water ${plantName}`,
+        'aria-label': `Marquer ${plantName} comme arrosee`,
         onClick,
-        onKeyDown: (e: React.KeyboardEvent) => {
+        onKeyDown: (e: KeyboardEvent) => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
             onClick();
@@ -37,9 +39,14 @@ export function DayCell({ state, isToday, date, onClick, plantName }: DayCellPro
         style: { touchAction: 'manipulation' },
       } : {})}
     >
-      {(state === 'future' || state === 'overdue') && (
-        <div className={styles.dot} />
+      {state === 'future' && <Droplets className={styles.icon} size={19} strokeWidth={2.4} />}
+      {state === 'overdue' && onClick && (
+        <span className={styles.actionContent}>
+          <Check size={16} strokeWidth={3} />
+          <span>OK</span>
+        </span>
       )}
+      {state === 'overdue' && !onClick && <span className={styles.overdueTrail} />}
     </div>
   );
 }

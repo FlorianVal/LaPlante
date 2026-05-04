@@ -29,5 +29,29 @@ export function createDatabase(databasePath: string): DatabaseHandle {
   const sqlite = new BetterSqlite3(databasePath);
   const db = drizzle(sqlite, { schema }) as AppDatabase;
 
+  sqlite.exec(`
+    CREATE TABLE IF NOT EXISTS plants (
+      id TEXT PRIMARY KEY,
+      name TEXT NOT NULL,
+      photo_path TEXT,
+      created_at TEXT NOT NULL,
+      updated_at TEXT NOT NULL
+    );
+    CREATE TABLE IF NOT EXISTS recurrence_rules (
+      plant_id TEXT PRIMARY KEY REFERENCES plants(id) ON DELETE CASCADE,
+      interval_days INTEGER NOT NULL,
+      created_at TEXT NOT NULL,
+      updated_at TEXT NOT NULL
+    );
+    CREATE TABLE IF NOT EXISTS watering_events (
+      id TEXT PRIMARY KEY,
+      plant_id TEXT NOT NULL REFERENCES plants(id) ON DELETE CASCADE,
+      watered_on TEXT NOT NULL,
+      created_at TEXT NOT NULL
+    );
+    CREATE INDEX IF NOT EXISTS watering_events_plant_id_idx ON watering_events(plant_id);
+    CREATE INDEX IF NOT EXISTS watering_events_watered_on_idx ON watering_events(watered_on);
+  `);
+
   return { sqlite, db };
 }

@@ -1,19 +1,26 @@
 :root {
   /* Colors - Background */
-  --color-bg-primary: #ffffff;
-  --color-bg-secondary: #f8faf8;
+  --color-bg-primary: #f7faf6;
+  --color-bg-secondary: #ffffff;
+  --color-bg-elevated: #ffffff;
+  --color-bg-wash: #edf6ee;
   /* Colors - Accent */
-  --color-accent: #22c55e;
-  --color-accent-light: #f0fdf4;
-  --color-overdue: #f59e0b;
-  --color-overdue-light: #fffbeb;
+  --color-accent: #177a47;
+  --color-accent-strong: #0f5132;
+  --color-accent-light: #dff3e6;
+  --color-overdue: #d97706;
+  --color-overdue-strong: #92400e;
+  --color-overdue-light: #fff1d6;
+  --color-confirm: #f7b733;
   /* Colors - Text */
-  --color-text-primary: #18181b;
-  --color-text-secondary: #71717a;
+  --color-text-primary: #17211b;
+  --color-text-secondary: #607267;
+  --color-text-muted: #87938b;
   /* Colors - Border */
-  --color-border: #e4e4e7;
+  --color-border: #dbe7de;
+  --color-border-strong: #b7cbbb;
   /* Colors - Now Marker */
-  --color-now-marker: #3b82f6;
+  --color-now-marker: #2563eb;
   /* Colors - Skeleton */
   --color-skeleton: #e4e4e7;
   --color-skeleton-active: #f4f4f5;
@@ -30,22 +37,37 @@
   --font-label: 12px;
   --font-heading: 20px;
   --font-display: 28px;
+  --font-caption: 11px;
   --font-weight-regular: 400;
   --font-weight-semibold: 600;
+  --font-weight-bold: 700;
   --line-height-body: 1.5;
   --line-height-label: 1.4;
   --line-height-heading: 1.2;
   /* Grid dimensions */
-  --cell-width: 56px;
-  --cell-height: 48px;
-  --cell-gap: 2px;
-  --cell-radius: 4px;
-  --row-height: 64px;
-  --name-column-width: 160px;
-  --header-row-height: 56px;
-  --dot-size: 20px;
-  --marker-width: 2px;
-  --icon-placeholder-size: 32px;
+  --cell-width: 64px;
+  --cell-height: 58px;
+  --cell-gap: 6px;
+  --cell-radius: 10px;
+  --row-height: 78px;
+  --name-column-width: 220px;
+  --header-row-height: 70px;
+  --dot-size: 24px;
+  --icon-placeholder-size: 48px;
   /* Font stack */
-  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-family: "Avenir Next", Avenir, "Segoe UI", sans-serif;
+  --shadow-soft: 0 18px 45px rgba(23, 33, 27, 0.12);
+  --shadow-touch: 0 8px 20px rgba(23, 122, 71, 0.18);
+}
+
+@media (max-width: 720px) {
+  :root {
+    --cell-width: 54px;
+    --cell-height: 56px;
+    --cell-gap: 4px;
+    --row-height: 72px;
+    --name-column-width: 142px;
+    --header-row-height: 66px;
+    --icon-placeholder-size: 40px;
+  }
 }
