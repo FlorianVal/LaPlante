@@ -22,16 +22,13 @@ The tablet must make it obvious which plants need watering now and let the user 
 - [x] Let each plant have a name, photo, and watering recurrence. Validated in Phase 3: Plant Creation and Photos
 - [x] Let the user add a plant from the interface, creating a new row. Validated in Phase 3: Plant Creation and Photos
 - [x] Plant photos persist across browser refresh and server restart. Validated in Phase 3: Plant Creation and Photos
+- [x] Let the user click the yellow alert to mark the plant as watered and return it to a green/current state. Validated in Phase 4: Watering Confirmation and Tablet Polish
+- [x] Persist plant and watering data through a small local server. Validated in Phase 4: Watering Confirmation and Tablet Polish
+- [x] Optimize the experience for a tablet that stays at home. Validated in Phase 4: Watering Confirmation and Tablet Polish
 
 ### Active
 
-- [ ] Show a day-based timeline table with one row per plant.
-- [ ] Keep a vertical current-date marker centered on the main screen.
-- [ ] Show future watering occurrences as small green cells on the plant row.
-- [ ] Show a single yellow overdue alert on a plant row when watering is late.
-- [ ] Let the user click the yellow alert to mark the plant as watered and return it to a green/current state.
-- [ ] Persist plant and watering data through a small local server.
-- [ ] Optimize the experience for a tablet that stays at home.
+None — all v1 requirements validated.
 
 ### Out of Scope
 
@@ -85,4 +82,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-05-03 after Phase 3 completion*
+*Last updated: 2026-05-04 after Phase 4 completion*
