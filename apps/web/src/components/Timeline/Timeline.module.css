@@ -92,21 +92,14 @@
   grid-template-rows: auto;
   padding: var(--space-sm);
   scroll-padding-inline: 50%;
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-border-strong) transparent;
+  scrollbar-width: none;
   background:
     linear-gradient(90deg, rgba(237, 246, 238, 0.76), transparent 16%, transparent 84%, rgba(237, 246, 238, 0.76)),
     var(--color-bg-secondary);
 }
 
 .grid::-webkit-scrollbar {
-  height: 10px;
-  width: 10px;
-}
-
-.grid::-webkit-scrollbar-thumb {
-  background: var(--color-border-strong);
-  border-radius: 999px;
+  display: none;
 }
 
 @media (max-width: 720px) {
