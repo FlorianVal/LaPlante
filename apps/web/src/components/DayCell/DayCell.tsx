@@ -39,7 +39,13 @@ export function DayCell({ state, isToday, date, onClick, plantName }: DayCellPro
         style: { touchAction: 'manipulation' },
       } : {})}
     >
-      {state === 'future' && <Droplets className={styles.icon} size={19} strokeWidth={2.4} />}
+      {state === 'future' && !onClick && <Droplets className={styles.icon} size={19} strokeWidth={2.4} />}
+      {state === 'future' && onClick && (
+        <span className={styles.actionContent}>
+          <Check size={16} strokeWidth={3} />
+          <span>OK</span>
+        </span>
+      )}
       {state === 'overdue' && onClick && (
         <span className={styles.actionContent}>
           <Check size={16} strokeWidth={3} />

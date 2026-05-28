@@ -69,7 +69,7 @@ export function PlantRow({ plant, dates, today, onConfirmWatering }: PlantRowPro
             state={cellState}
             isToday={isToday}
             date={date}
-            onClick={cellState === 'overdue' && isToday && onConfirmWatering ? () => onConfirmWatering(plant.id) : undefined}
+            onClick={(cellState === 'overdue' || cellState === 'future') && isToday && onConfirmWatering ? () => onConfirmWatering(plant.id) : undefined}
             plantName={plant.name}
           />
         );
