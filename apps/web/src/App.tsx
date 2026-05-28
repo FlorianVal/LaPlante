@@ -1,7 +1,9 @@
 import { useState, useCallback } from 'react';
+import type { PlantResponse } from '@laplante/shared';
 import { Plus } from 'lucide-react';
 import { Timeline } from './components/Timeline/Timeline';
 import { AddPlantModal } from './components/AddPlantModal/AddPlantModal';
+import { PlantProfileModal } from './components/PlantProfileModal/PlantProfileModal';
 import { Toast } from './components/Toast/Toast';
 import { usePlants } from './hooks/usePlants';
 import { useCurrentTime } from './hooks/useCurrentTime';
@@ -12,6 +14,7 @@ function App() {
   const currentTime = useCurrentTime();
   const [modalOpen, setModalOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [selectedPlant, setSelectedPlant] = useState<PlantResponse | null>(null);
 
   const handlePlantCreated = useCallback(async () => {
     await refresh();
@@ -36,6 +39,7 @@ function App() {
         onEmptyStateClick={handleEmptyStateClick}
         onRefresh={refresh}
         onToastError={handleToast}
+        onPlantClick={setSelectedPlant}
       />
       <button
         className={styles.fab}
@@ -49,6 +53,12 @@ function App() {
           onClose={() => setModalOpen(false)}
           onCreated={handlePlantCreated}
           onToast={handleToast}
+        />
+      )}
+      {selectedPlant && (
+        <PlantProfileModal
+          plant={selectedPlant}
+          onClose={() => setSelectedPlant(null)}
         />
       )}
       <Toast message={toastMessage} />

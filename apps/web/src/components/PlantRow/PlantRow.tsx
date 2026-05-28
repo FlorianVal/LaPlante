@@ -9,6 +9,7 @@ interface PlantRowProps {
   dates: ISODateString[];
   today: ISODateString;
   onConfirmWatering?: (plantId: string) => void;
+  onPlantClick?: (plantId: string) => void;
 }
 
 function getCellState(
@@ -34,14 +35,26 @@ function getCellState(
   return 'empty';
 }
 
-export function PlantRow({ plant, dates, today, onConfirmWatering }: PlantRowProps) {
+export function PlantRow({ plant, dates, today, onConfirmWatering, onPlantClick }: PlantRowProps) {
   const scheduleLabel = plant.schedule.isOverdue
     ? 'En retard'
     : `Tous les ${plant.recurrence.intervalDays} j`;
 
   return (
     <div className={styles.row}>
-      <div className={styles.nameColumn}>
+      <div
+        className={`${styles.nameColumn} ${onPlantClick ? styles.clickable : ''}`}
+        onClick={onPlantClick ? () => onPlantClick(plant.id) : undefined}
+        role={onPlantClick ? 'button' : undefined}
+        tabIndex={onPlantClick ? 0 : undefined}
+        aria-label={onPlantClick ? `Voir le profil de ${plant.name}` : undefined}
+        onKeyDown={onPlantClick ? (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            onPlantClick(plant.id);
+          }
+        } : undefined}
+      >
         <div className={styles.iconPlaceholder}>
           {plant.photoPath ? (
             <img

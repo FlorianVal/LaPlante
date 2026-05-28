@@ -19,6 +19,7 @@ interface TimelineProps {
   onEmptyStateClick?: () => void;
   onRefresh: () => void;
   onToastError: (message: string) => void;
+  onPlantClick?: (plant: PlantResponse) => void;
 }
 
 const PAST_DAYS = 7;
@@ -48,6 +49,7 @@ export function Timeline({
   onEmptyStateClick,
   onRefresh,
   onToastError,
+  onPlantClick,
 }: TimelineProps) {
   const today = useMemo(() => todayISO(currentTime), [currentTime]);
   const dates = useMemo(() => generateDateRange(today), [today]);
@@ -133,6 +135,7 @@ export function Timeline({
               dates={dates}
               today={today}
               onConfirmWatering={handleConfirmWatering}
+              onPlantClick={onPlantClick ? () => onPlantClick(plant) : undefined}
             />
           ))}
         </div>

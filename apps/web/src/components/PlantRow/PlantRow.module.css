@@ -22,6 +22,22 @@
   background: #ffffff;
 }
 
+.clickable {
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.16s ease, box-shadow 0.16s ease;
+}
+
+.clickable:hover {
+  transform: translateY(-1px);
+  box-shadow: 8px 4px 24px rgba(23, 33, 27, 0.1);
+}
+
+.clickable:active {
+  transform: scale(0.98);
+  transition: transform 0.08s ease;
+}
+
 .iconPlaceholder {
   width: var(--icon-placeholder-size);
   height: var(--icon-placeholder-size);
