@@ -35,6 +35,19 @@ export async function createPlant(formData: FormData): Promise<PlantResponse> {
   return res.json();
 }
 
+export async function updatePlant(plantId: string, formData: FormData): Promise<PlantResponse> {
+  const { from, to } = getDateWindow();
+  const res = await fetch(`${API_BASE}/plants/${plantId}?from=${from}&to=${to}`, {
+    method: 'PUT',
+    body: formData,
+  });
+  if (!res.ok) {
+    if (res.status === 413) throw new Error('Photo is too large. Please choose an image under 5 MB.');
+    throw new Error('Could not update plant. Check your connection and try again.');
+  }
+  return res.json();
+}
+
 export async function confirmWatering(plantId: string): Promise<void> {
   const { from, to } = getDateWindow();
   const res = await fetch(`${API_BASE}/plants/${plantId}/waterings?from=${from}&to=${to}`, {

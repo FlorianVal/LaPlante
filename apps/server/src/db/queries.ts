@@ -31,6 +31,12 @@ export type CreatePlantWithRecurrenceInput = {
   lastWateredOn: ISODateString;
 };
 
+export type UpdatePlantWithRecurrenceInput = {
+  name?: string;
+  photoPath?: string | null;
+  intervalDays?: number;
+};
+
 export type RecordWateringInput = {
   plantId: PlantId;
   wateredOn: ISODateString;
@@ -73,6 +79,33 @@ export function createPlantWithRecurrence(
   }
 
   return plant;
+}
+
+export function updatePlantWithRecurrence(
+  db: AppDatabase,
+  plantId: PlantId,
+  input: UpdatePlantWithRecurrenceInput
+): PlantWithRecurrence | null {
+  const now = new Date().toISOString();
+
+  db.transaction((tx) => {
+    const plantUpdates: Record<string, unknown> = { updatedAt: now };
+    if (input.name !== undefined) plantUpdates.name = input.name;
+    if (input.photoPath !== undefined) plantUpdates.photoPath = input.photoPath;
+
+    if (Object.keys(plantUpdates).length > 1) {
+      tx.update(plants).set(plantUpdates).where(eq(plants.id, plantId)).run();
+    }
+
+    if (input.intervalDays !== undefined) {
+      tx.update(recurrenceRules)
+        .set({ intervalDays: input.intervalDays, updatedAt: now })
+        .where(eq(recurrenceRules.plantId, plantId))
+        .run();
+    }
+  });
+
+  return getPlantWithRecurrence(db, plantId);
 }
 
 export function listPlantsWithRecurrence(db: AppDatabase): PlantWithRecurrence[] {

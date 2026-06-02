@@ -13,7 +13,8 @@ import {
   getPlantWithRecurrence,
   listPlantsWithRecurrence,
   listWateringEvents,
-  recordWatering as insertWatering
+  recordWatering as insertWatering,
+  updatePlantWithRecurrence
 } from "../db/queries.js";
 
 export type CreatePlantInput = {
@@ -25,6 +26,12 @@ export type CreatePlantInput = {
 
 export type RecordWateringInput = {
   wateredOn?: ISODateString;
+};
+
+export type UpdatePlantInput = {
+  name?: string;
+  intervalDays?: number;
+  photoPath?: string | null;
 };
 
 export type PlantService = ReturnType<typeof createPlantService>;
@@ -57,6 +64,16 @@ export function createPlantService(
       });
 
       return toPlantResponse(db, plant.id, window, currentDay());
+    },
+
+    updatePlant(
+      id: string,
+      input: UpdatePlantInput,
+      window: ScheduleWindow
+    ): PlantResponse | null {
+      const updated = updatePlantWithRecurrence(db, id, input);
+      if (!updated) return null;
+      return toPlantResponse(db, updated.id, window, currentDay());
     },
 
     recordWatering(

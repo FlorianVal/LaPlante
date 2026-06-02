@@ -59,6 +59,8 @@ function App() {
         <PlantProfileModal
           plant={selectedPlant}
           onClose={() => setSelectedPlant(null)}
+          onUpdated={refresh}
+          onToast={handleToast}
         />
       )}
       <Toast message={toastMessage} />

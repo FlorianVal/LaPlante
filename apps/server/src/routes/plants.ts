@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import { writeFileSync } from "node:fs";
+import { writeFileSync, unlinkSync } from "node:fs";
 import path from "node:path";
 
 import { differenceInCalendarDays } from "date-fns";
@@ -23,6 +23,11 @@ const createPlantSchema = z.object({
   intervalDays: z.number().int().min(1),
   lastWateredOn: isoDateSchema.optional(),
   photoPath: z.string().nullable().optional()
+});
+
+const updatePlantSchema = z.object({
+  name: z.string().trim().min(1).optional(),
+  intervalDays: z.number().int().min(1).optional()
 });
 
 const recordWateringSchema = z.object({
@@ -147,6 +152,99 @@ export async function registerPlantRoutes(
       window.value
     );
     return reply.code(201).send(plant);
+  });
+
+  app.put("/api/plants/:id", async (request, reply) => {
+    const window = parseWindow(request.query);
+    if (!window.ok) {
+      return reply.code(400).send({ error: window.error });
+    }
+
+    const params = z.object({ id: z.string().min(1) }).safeParse(request.params);
+    if (!params.success) {
+      return reply.code(400).send({ error: "Invalid plant id" });
+    }
+
+    const plantId = params.data.id;
+
+    // Vérifier que la plante existe
+    const existing = plantService.getPlant(plantId, window.value);
+    if (!existing) {
+      return reply.code(404).send({ error: "Plant not found" });
+    }
+
+    const contentType = request.headers["content-type"] ?? "";
+    let name: string | undefined;
+    let intervalDays: number | undefined;
+    let photoPath: string | null | undefined;
+
+    const photosDir = options.photosDir ?? path.resolve("data/photos");
+
+    if (contentType.startsWith("multipart/form-data")) {
+      const fieldValues: Record<string, string> = {};
+      let fileData: { buffer: Buffer; mimetype: string; filename: string } | undefined;
+
+      for await (const part of request.parts()) {
+        if (part.type === "field") {
+          fieldValues[part.fieldname] = String(part.value);
+        } else if (part.type === "file" && !fileData) {
+          const buffer = await part.toBuffer();
+          if (!part.file.truncated) {
+            fileData = {
+              buffer,
+              mimetype: part.mimetype,
+              filename: part.filename
+            };
+          } else {
+            return reply.code(413).send({ error: "File too large" });
+          }
+        }
+      }
+
+      if (fieldValues["name"] !== undefined) name = fieldValues["name"];
+      if (fieldValues["intervalDays"] !== undefined) intervalDays = Number(fieldValues["intervalDays"]);
+
+      const allowedMimeTypes = ["image/jpeg", "image/png", "image/webp", "image/gif"];
+      if (fileData && allowedMimeTypes.includes(fileData.mimetype)) {
+        const ext = fileData.filename?.split(".").pop() ?? "jpg";
+        const safeName = `${randomUUID()}.${ext}`;
+        const filePath = path.join(photosDir, safeName);
+
+        writeFileSync(filePath, fileData.buffer);
+        photoPath = safeName;
+      }
+
+      // Valider les champs extraits
+      const parsed = updatePlantSchema.safeParse({ name, intervalDays });
+      if (!parsed.success) {
+        return reply.code(400).send({ error: "Invalid plant input" });
+      }
+      name = parsed.data.name;
+      intervalDays = parsed.data.intervalDays;
+    } else {
+      const body = updatePlantSchema.safeParse(request.body ?? {});
+      if (!body.success) {
+        return reply.code(400).send({ error: "Invalid plant input" });
+      }
+      name = body.data.name;
+      intervalDays = body.data.intervalDays;
+    }
+
+    // Supprimer l'ancienne photo si remplacée
+    if (photoPath !== undefined && existing.photoPath) {
+      try {
+        unlinkSync(path.join(photosDir, existing.photoPath));
+      } catch {
+        // Le fichier peut ne pas exister ; on ignore
+      }
+    }
+
+    const updated = plantService.updatePlant(plantId, { name, intervalDays, photoPath }, window.value);
+    if (!updated) {
+      return reply.code(404).send({ error: "Plant not found" });
+    }
+
+    return updated;
   });
 
   app.post("/api/plants/:id/waterings", async (request, reply) => {
