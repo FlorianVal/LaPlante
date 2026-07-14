@@ -7,6 +7,7 @@ import Fastify, { type FastifyInstance } from "fastify";
 
 import { loadConfig } from "./config.js";
 import { createDatabase, type AppDatabase } from "./db/client.js";
+import { registerDashboardSummaryRoute } from "./routes/dashboard-summary.js";
 import { registerHealthRoute } from "./routes/health.js";
 import { registerPlantRoutes } from "./routes/plants.js";
 
@@ -57,6 +58,11 @@ export function buildApp(options: BuildAppOptions = {}): FastifyInstance {
     db,
     today: options.today,
     photosDir
+  });
+
+  void app.register(registerDashboardSummaryRoute, {
+    db,
+    today: options.today
   });
 
   if (databaseHandle) {

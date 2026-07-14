@@ -2,6 +2,11 @@ export type PlantId = string;
 
 export type ISODateString = string;
 
+export type DashboardSummary = {
+  overdueCount: number;
+  lastWateredOn: ISODateString | null;
+};
+
 export type RecurrenceRule = {
   intervalDays: number;
 };

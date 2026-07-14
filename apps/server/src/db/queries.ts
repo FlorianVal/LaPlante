@@ -159,6 +159,17 @@ export function listWateringEvents(
     .all();
 }
 
+export function getLatestWateringDate(
+  db: AppDatabase
+): ISODateString | null {
+  return db
+    .select({ wateredOn: wateringEvents.wateredOn })
+    .from(wateringEvents)
+    .orderBy(desc(wateringEvents.wateredOn))
+    .limit(1)
+    .get()?.wateredOn ?? null;
+}
+
 function toPlantWithRecurrence(row: {
   plants: typeof plants.$inferSelect;
   recurrence_rules: typeof recurrenceRules.$inferSelect;
