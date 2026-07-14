@@ -5,7 +5,6 @@ import { dirname, join } from "node:path";
 import { describe, expect, it } from "vitest";
 
 import { buildApp } from "../app.js";
-import { createDatabase } from "../db/client.js";
 
 const WINDOW = "from=2026-05-03&to=2026-05-31";
 
@@ -13,7 +12,6 @@ describe("Persistence smoke tests", () => {
   // PERS-02: Plants and watering events survive server restart
   it("persists plants and watering events across database close/reopen", async () => {
     const { databasePath, cleanup } = createTempDatabasePath();
-    applySchemaFile(databasePath);
 
     const firstApp = buildApp({ databasePath, today: "2026-05-03" });
 
@@ -69,7 +67,6 @@ describe("Persistence smoke tests", () => {
   // PERS-02: Multiple watering events survive restart
   it("persists multiple watering events across database close/reopen", async () => {
     const { databasePath, cleanup } = createTempDatabasePath();
-    applySchemaFile(databasePath);
 
     const firstApp = buildApp({ databasePath, today: "2026-05-03" });
 
@@ -129,7 +126,6 @@ describe("Persistence smoke tests", () => {
   // PERS-03: Photo metadata survives server restart
   it("persists photo path across database close/reopen", async () => {
     const { databasePath, cleanup } = createTempDatabasePath();
-    applySchemaFile(databasePath);
 
     const photosDir = join(dirname(databasePath), "photos");
     mkdirSync(photosDir, { recursive: true });
@@ -173,7 +169,6 @@ describe("Persistence smoke tests", () => {
   // PERS-01: Plants survive browser-refresh equivalent
   it("returns identical plant data on repeated GET requests", async () => {
     const { databasePath, cleanup } = createTempDatabasePath();
-    applySchemaFile(databasePath);
 
     const app = buildApp({ databasePath, today: "2026-05-03" });
 
@@ -239,37 +234,4 @@ function createTempDatabasePath(): {
     databasePath: join(dir, "laplante.sqlite"),
     cleanup: () => rmSync(dir, { recursive: true, force: true })
   };
-}
-
-function applySchemaFile(databasePath: string): void {
-  const handle = createDatabase(databasePath);
-  handle.sqlite.exec(`
-    PRAGMA foreign_keys = ON;
-
-    CREATE TABLE plants (
-      id text PRIMARY KEY NOT NULL,
-      name text NOT NULL,
-      photo_path text,
-      created_at text NOT NULL,
-      updated_at text NOT NULL
-    );
-
-    CREATE TABLE recurrence_rules (
-      plant_id text PRIMARY KEY NOT NULL REFERENCES plants(id) ON DELETE cascade,
-      interval_days integer NOT NULL,
-      created_at text NOT NULL,
-      updated_at text NOT NULL
-    );
-
-    CREATE TABLE watering_events (
-      id text PRIMARY KEY NOT NULL,
-      plant_id text NOT NULL REFERENCES plants(id) ON DELETE cascade,
-      watered_on text NOT NULL,
-      created_at text NOT NULL
-    );
-
-    CREATE INDEX watering_events_plant_id_idx ON watering_events(plant_id);
-    CREATE INDEX watering_events_watered_on_idx ON watering_events(watered_on);
-  `);
-  handle.sqlite.close();
 }

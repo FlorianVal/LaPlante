@@ -17,7 +17,6 @@ describe("persistence queries", () => {
     const { databasePath, cleanup } = createTempDatabasePath();
 
     const firstHandle = createDatabase(databasePath);
-    applySchema(firstHandle.sqlite);
 
     const plant = createPlantWithRecurrence(firstHandle.db, {
       name: "Monstera",
@@ -54,7 +53,6 @@ describe("persistence queries", () => {
   it("stores one watering event per confirmation and no occurrence rows", () => {
     const { databasePath, cleanup } = createTempDatabasePath();
     const handle = createDatabase(databasePath);
-    applySchema(handle.sqlite);
 
     const plant = createPlantWithRecurrence(handle.db, {
       name: "Monstera",
@@ -85,35 +83,4 @@ function createTempDatabasePath(): {
     databasePath: join(dir, "laplante.sqlite"),
     cleanup: () => rmSync(dir, { recursive: true, force: true })
   };
-}
-
-function applySchema(sqlite: { exec(source: string): void }): void {
-  sqlite.exec(`
-    PRAGMA foreign_keys = ON;
-
-    CREATE TABLE plants (
-      id text PRIMARY KEY NOT NULL,
-      name text NOT NULL,
-      photo_path text,
-      created_at text NOT NULL,
-      updated_at text NOT NULL
-    );
-
-    CREATE TABLE recurrence_rules (
-      plant_id text PRIMARY KEY NOT NULL REFERENCES plants(id) ON DELETE cascade,
-      interval_days integer NOT NULL,
-      created_at text NOT NULL,
-      updated_at text NOT NULL
-    );
-
-    CREATE TABLE watering_events (
-      id text PRIMARY KEY NOT NULL,
-      plant_id text NOT NULL REFERENCES plants(id) ON DELETE cascade,
-      watered_on text NOT NULL,
-      created_at text NOT NULL
-    );
-
-    CREATE INDEX watering_events_plant_id_idx ON watering_events(plant_id);
-    CREATE INDEX watering_events_watered_on_idx ON watering_events(watered_on);
-  `);
 }

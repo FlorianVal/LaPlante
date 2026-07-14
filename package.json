@@ -10,7 +10,7 @@
     "dev:server": "npm --workspace @laplante/server run dev",
     "test": "vitest run",
     "typecheck": "npm --workspaces run typecheck",
-    "build": "npm --workspaces run build"
+    "build": "npm --workspace @laplante/shared run build && npm --workspace @laplante/server run build && npm --workspace @laplante/web run build"
   },
   "dependencies": {
     "better-sqlite3": "^12.2.0",
