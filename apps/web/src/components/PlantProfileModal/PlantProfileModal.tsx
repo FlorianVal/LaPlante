@@ -5,6 +5,7 @@ import { fr } from 'date-fns/locale';
 import type { PlantResponse } from '@laplante/shared';
 import { parseISODate } from '@laplante/shared';
 import { updatePlant } from '../../lib/api';
+import { photoUrl } from '../../lib/photos';
 import styles from './PlantProfileModal.module.css';
 
 interface PlantProfileModalProps {
@@ -211,7 +212,7 @@ export function PlantProfileModal({ plant, onClose, onUpdated, onToast }: PlantP
                     <img src={editPhotoPreview} alt="Apercu" className={styles.photoPreview} />
                   ) : plant.photoPath ? (
                     <img
-                      src={`/photos/${plant.photoPath}`}
+                      src={photoUrl(plant.photoPath)}
                       alt={plant.name}
                       className={styles.photoPreview}
                     />
@@ -306,7 +307,7 @@ export function PlantProfileModal({ plant, onClose, onUpdated, onToast }: PlantP
             <div className={styles.photoSection}>
               {plant.photoPath ? (
                 <img
-                  src={`/photos/${plant.photoPath}`}
+                  src={photoUrl(plant.photoPath)}
                   alt={plant.name}
                   className={styles.photoImage}
                 />

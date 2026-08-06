@@ -2,6 +2,7 @@ import { Flower2 } from 'lucide-react';
 import type { PlantResponse, ISODateString } from '@laplante/shared';
 import { compareISODate } from '@laplante/shared';
 import { DayCell } from '../DayCell/DayCell';
+import { photoUrl } from '../../lib/photos';
 import styles from './PlantRow.module.css';
 
 interface PlantRowProps {
@@ -58,7 +59,7 @@ export function PlantRow({ plant, dates, today, onConfirmWatering, onPlantClick 
         <div className={styles.iconPlaceholder}>
           {plant.photoPath ? (
             <img
-              src={`/photos/${plant.photoPath}`}
+              src={photoUrl(plant.photoPath)}
               alt={plant.name}
               className={styles.plantPhoto}
             />
